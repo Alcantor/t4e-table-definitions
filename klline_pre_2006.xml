@@ -1,0 +1,3569 @@
+<!-- ================================================================ -->
+<!--            Calibration Definition for KLINE T4e's                -->
+<!-- (c) CyberNet, 2016                                               -->
+<!--                                                                  -->
+<!-- ================================================================ -->
+<t4e>
+<calfile_headersize>0x0</calfile_headersize>
+<calfile_vaddr>0x3F8000</calfile_vaddr>
+<calfile_vin>0x3FCFAC</calfile_vin>
+<calfile_model>0x3FC986</calfile_model>
+<calfile_lockstate>0x0</calfile_lockstate>
+<calfile_checksum>0x0</calfile_checksum>
+  <datalogger>
+     <var50>
+       <name>100ms counter for CAN 0x400</name>  
+       <addr>3FCFF6</addr>
+       <size>2</size>
+     </var50>
+     <var50>
+  <name>Injector_0to72_val</name>  
+  <addr>3F8BD0</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>Engine Runtime</name>
+  <description>OBD Mode 1 PID 0x1F Engine Runtime since start</description>
+  <calc>VAR / 200</calc>
+  <precision>2</precision>
+  <size>2</size>
+  <unit>seconds</unit>
+  <addr>3FD024</addr>
+</var50>
+<var50>
+  <name>ADC Throttle Body TPS2</name>  
+  <description>Direct ADC reading of RE3 ECU pin</description>
+  <addr>304A82</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Baro/Pressure Sensor</name>  
+  <description>Direct ADC reading of ECU internal sensor</description>
+  <addr>304A84</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Throttle Pedal PPS1</name>  
+  <description>Direct ADC reading of LD1 ECU pin</description>
+  <addr>304A86</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Throttle Pedal PPS2</name>  
+  <description>Direct ADC reading of LD2 ECU pin</description>
+  <addr>304A88</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Oil Pressure Switch</name>  
+  <description>Direct ADC reading of RA2 ECU pin</description>
+  <addr>304A8A</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Evap Pressure Sensor</name>  
+  <description>Direct ADC reading of LC1 ECU pin</description>
+  <addr>304A8C</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Intake Air Temp (via TMAF)</name>  
+  <description>Direct ADC reading of RB3 (1ZZ) ECU pin</description>
+  <addr>304A90</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Oil Pressure Switch VVTi</name>  
+  <description>Direct ADC reading of RB2 ECU pin</description>
+  <addr>304A92</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Turbo/Compressor Boost Sensor A (TMAP)</name>  
+  <description>Direct ADC reading of RB1 ECU pin</description>
+  <addr>304A94</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC MAF Sensor</name>  
+  <description>Direct ADC reading of RB4 ECU pin</description>
+  <addr>304A96</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Variable Traction Control Pot</name>  
+  <description>Direct ADC reading of LD4 ECU pin</description>
+  <addr>304A98</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Fuel Level Sensor</name>  
+  <description>Direct ADC reading of LE3 ECU pin</description>
+  <addr>304A9E</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Engine/Coolant Temp Sensor</name>  
+  <description>Direct ADC reading of RC3 ECU pin</description>
+  <addr>304E82</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC LTC Switch</name>  
+  <description>Direct ADC reading of RC2 ECU pin</description>
+  <addr>304E84</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Pre Cat O2 Sensor</name>  
+  <description>Direct ADC reading of LA3 ECU pin</description>
+  <addr>304E86</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Pre Cat O2 Heater current</name>  
+  <description>Current shunt reading for heater circuit</description>
+  <addr>304E88</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Post Cat O2 Sensor</name>  
+  <description>Direct ADC reading of LB3 ECU pin</description>
+  <addr>304E8A</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Post Cat O2 Heater current</name>  
+  <description>Current shunt reading for heater circuit</description>
+  <addr>304E8C</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Knock Sensor (ST9119D)</name>  
+  <description>Knocksensor signal processed by ST9119D</description>
+  <addr>304E8E</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Knock Sensor (OPA)</name>  
+  <description>Knocksensor signal processed by OpAmp - RC4 ECU pin</description>
+  <addr>304E90</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Control Module Voltage</name>  
+  <description>Direct reading of ECU power pins</description>
+  <addr>304E94</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC Control Module Voltage (IGN)</name>  
+  <description>Direct reading of LG3 ECU pin</description>
+  <addr>304E96</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>ADC AC Fan Request</name>  
+  <description>Direct reading of LE1 ECU pin</description>
+  <addr>304E9A</addr>
+  <size>2</size>
+</var50>
+<var80>
+  <name>BoostSensorA_calc</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD256</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD322</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD32D</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>TPS_RPM_result_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>STFT_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD396</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD25A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD222</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Knock_word_3FD006</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B46</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B48</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B4A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B4C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Misfire_Tbl4_0</name>
+  <size>2</size>
+  <description>4 half-words</description>
+</var80>
+<var80>
+  <name>Misfire_Tbl4_1</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Misfire_Tbl4_2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Misfire_Tbl4_3</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B4E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B50</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B52</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B54</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B56</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B58</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B5A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8B5C</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_M22_P204</name>
+  <description>Unknown RPM value, also used for Mode 22 PID 4</description>
+  <calc>250000 / (480000 / VAR + 16) * 60</calc>
+  <unit>RPM</unit>
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_Oxygen_Sensor1_Chan_4E86</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>ADC_Oxygen_Sensor2_Chan_4E8A_2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_M1_P10_MAFAirFlowRate_Short</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD31A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>BaroPressure_limit_val</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>EngineLoadNumber_val</name>
+  <description>As used in Mapping tables</description>
+  <unit></unit>
+  <size>1</size>
+</var80>
+<var80>
+  <name>3FD306</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>ThrottlePedal_PPS_val_LU</name>
+  <size>2</size>
+  <description>Calculated from throttle pedal pos sensors via a lookup table</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>AbsLoad_calc_div_540</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Throttle_unk_3FDAB8</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_M1_PC_EngineRPMx4</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD176</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>ThrottlePosSensor_val</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F8B08</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B0A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B0C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B0E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B10</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B12</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B14</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unk_3F8B16</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD020</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD00E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD25C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD236</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_M1_P44_FuelAirCommandedRatio_Short</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD172</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>M22_P208</name>
+  <description>Cam Angle?</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>CAM_Angle</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>M22_P207</name>
+  <description>Cam Angle?</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD3F6</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>MAFAirFlow_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>M22_P20A</name>
+  <description>MAF LU?</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F833E</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_2F82EB</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD3EE</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>FuelInjector_Latency_LU</name>
+  <description>Latency in milliseconds</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_Volts_vs_RPM_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD5BF</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD028</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD39A</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD333</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>OBD22_CurrentGear_val</name>
+  <description>Calculated via Speed vs. RPM</description>
+  <unit>Gear</unit>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD1FB</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD1F6</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_BaroPressure_LU</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Idle RPM Modifier by Speed</name>
+  <description>Idle RPM adjustment by Speed</description>
+  <calc>250000 / (480000 / VAR + 16) * 60</calc>
+  <unit>RPM</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_ControlModVoltage_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD1FA</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>M22_P203</name>
+  <description>Reset to 0 in Mode 11</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Current / Base Idle difference</name>
+  <description>Difference between current RPM and target Base Idle RPM</description>
+  <unit>RPM</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_BaroPressure_calc_vs_CoolantTemp_LU_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD1E2</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Vehicle Speed</name>
+  <description>Same as Mode 1 PID 0xD</description>
+  <unit>KPH</unit>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Wheel Speed Left Front</name>
+  <calc>VAR / 100</calc>
+  <precision>2</precision>
+  <unit>KPH</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Left Rear</name>
+  <calc>VAR / 100</calc>
+  <precision>2</precision>
+  <unit>KPH</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Right Front</name>
+  <calc>VAR / 100</calc>
+  <precision>2</precision>
+  <unit>KPH</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Right Rear</name>
+  <description>Used to calculate Vehicle Speed</description>
+  <calc>VAR / 100</calc>
+  <precision>2</precision>
+  <unit>KPH</unit>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Knockbitmask_byte_3FD3B5</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_2F8334</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD184</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>AbsLoad_vs_RPM_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD608</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Pre_O2_Sensor_Heater_Current</name>
+  <description>ADC Channel 0x4E88 calculated value</description>
+  <unit>A</unit>
+  <calc>VAR / 1000</calc>
+  <precision>3</precision>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Post_O2_Sensor_Heater_Current</name>
+  <description>ADC Channel 0x4E8C calculated value</description>
+  <unit>A</unit>
+  <calc>VAR / 1000</calc>
+  <precision>3</precision>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Octane Scalar Cylinder 4</name>
+  <description>Unit needs TBD</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Octane Scalar Cylinder 1</name>
+   <description>Unit needs TBD</description>
+ <size>2</size>
+</var80>
+<var80>
+  <name>Octane Scalar Cylinder 2</name>
+  <description>Unit needs TBD</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Octane Scalar Cylinder 3</name>
+  <description>Unit needs TBD</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Unk_BaseIdleSpeed_RPM_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Cur_MovingIDLESpeedAdj_RPM_val</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdv_off_3FD12C</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdj_Idle_LU</name>
+  <calc>VAR</calc>
+  <cast>signed</cast>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_vs_IntakeAirTemp_calc_LU_0</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_IntakeAirTemp_calc_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_unk_3F8032</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_Slipval_0_255</name>
+  <size>1</size>
+  <description>(Slipval in %) = ((WSSMaxRear * 100) / WSSMaxFront) - 100</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD19A</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>IdleError_LU0_OBD_M22_P2xx_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD60C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD60E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD60A</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD616</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD617</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD618</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD192</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD35C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_M1_P2E_CommandedEvapPurge_Byte</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD356</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_EvapPressureSens_Chan_4A8C_calced</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F8338</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F8336</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Calculated_TargetBaseIdleSpeedRPM_val</name>
+  <description>Idle Speed that ECU tries to achieve</description>
+  <unit>RPM</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD196</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_unk_3FD0FC</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_unk_3FD128</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_vs_EngineCoolantTemp_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F80E1</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F80E2</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F80E3</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F80E4</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign4</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign1</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign2</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign3</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_TC</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_Slip_vs_FuelCut_0_100</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_IntakeAirTemp_LU</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_EngineTemp_LU</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD582</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_FuelCut_0_100</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_state_flag</name>
+  <size>1</size>
+  <description>
+= 0x88 = LTC ON
+= 0x08 = LTC OFF
+= +0x10 = BUTTON PRESSED
+(when LTC ON) and ??? (LTC OFF)
+= 0xA0</description>
+</var80>
+<var80>
+  <name>3F800A</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>LUTResult_1D_TractionControl</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD35E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>ECU / Control Module Voltage</name>
+  <description>ECU Voltage</description>
+  <calc>VAR / 1024 * 18</calc>
+  <unit>V</unit>
+  <precision>2</precision>
+  <size>2</size>
+</var80>
+<var80>
+  <name>ECU Run Time</name>
+  <description>Time since last ignition ON</description>  
+  <size>2</size>
+  <calc>VAR / 10</calc>
+  <precision>1</precision>
+  <unit>seconds</unit>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD2B3</name>
+  <size>1</size>
+</var80>
+<var80>
+   <name>Barometric Pressure</name>
+  <description>Via ECU built-in sensor; also displayed in Mode 1 PID 33</description>
+  <unit>HPA</unit>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD5C4</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD5C2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Fastest_StandingStart_to_100KPH</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FanSlowRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FanFastRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Mode 3 Trouble Codes</name>
+ <description>Cycles through all active Mode 3 Trouble Codes?</description>
+  <unit>P-Code</unit>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Flag_TOOTH_UB_zero</name>
+  <size>1</size>
+  <description>Flag = 1 if upper byte of tooth counter is zero</description>
+</var80>
+<var80>
+  <name>word_3FD354</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD010</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD1F7</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD1F8</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD328</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_ACCIgnition_flag</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_2F8152</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F8041</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>LTFT_val</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IntakeAirTemp_LU</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>LOAD_vs_CoolantTemp_LU</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD2B5</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>MaxKPH_1</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>MaxRPM_1</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD586</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TEST_unk_2F830F</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD3D6</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD360</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FuelPumpRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IntakeAirTemp_calc</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IntakeAirTemp_2ZZ_calc2</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>CoolantTemp_val</name>
+  <unit>Degrees Farenheight</unit>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>VVLCamState</name>
+  <description>1=High CAM, 0= Low CAM</description>
+  <size>1</size>
+</var80>
+</datalogger>
+<maps>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_r>3fa484</lut_r>
+<lut_r_name>LUT_R_1D_RPM_beforeShiftLight</lut_r_name>
+<lut_r_calc>LUTR*10</lut_r_calc>
+<input_a>3fd2ac</input_a>
+<input_a_name>Gear</input_a_name>
+<input_a_unit>Number</input_a_unit>
+<output_name>Shiftlight RPM before Revlimiter</output_name>
+<output_unit>RPM</output_unit>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_r>3fce86</lut_r>
+<lut_r_name>LUT_R_1D_unk_3FCE86</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>sub_4418C (0x4425c)</xref_result>
+<lut_r>2f82bb</lut_r>
+<lut_r_name>LUT_R_1D_unk_2F82BB</lut_r_name>
+<input_a>3fd300</input_a>
+<input_a_name>unk_3FD300</input_a_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>sub_4418C (0x442a8)</xref_result>
+<lut_r>2f82cb</lut_r>
+<lut_r_name>LUT_R_1D_unk_2F82CB</lut_r_name>
+<input_a>3fd300</input_a>
+<input_a_name>unk_3FD300</input_a_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa8dc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA8DC</lut_a_name>
+<lut_b>3fa8e4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA8E4</lut_b_name>
+<lut_r>3fa8ec</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA8EC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9d54</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9D54</lut_a_name>
+<lut_b>3f9d5c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9D5C</lut_b_name>
+<lut_r>3f9d64</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9D64</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa66c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA66C</lut_a_name>
+<lut_b>3fa674</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA674</lut_b_name>
+<lut_r>3fa67c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA67C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fad6c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FAD6C</lut_a_name>
+<lut_b>3fad8c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FAD8C</lut_b_name>
+<lut_r>3fadac</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FADAC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa92c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA92C</lut_a_name>
+<lut_b>3fa94c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA94C</lut_b_name>
+<lut_r>3fa96c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA96C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa88c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA88C</lut_a_name>
+<lut_b>3fa894</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA894</lut_b_name>
+<lut_r>3fa89c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA89C</lut_r_name>
+<input_a>3fd00e</input_a>
+<input_a_name>off_3FD00E</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f969a</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F969A</lut_a_name>
+<lut_b>3f96a2</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F96A2</lut_b_name>
+<lut_r>3f96b2</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F96B2</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb25c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB25C</lut_a_name>
+<lut_b>3fb264</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB264</lut_b_name>
+<lut_r>3fb26c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB26C</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>3f8ce8</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa834</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA834</lut_a_name>
+<lut_b>3fa83c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA83C</lut_b_name>
+<lut_r>3fa844</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA844</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcd56</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCD56</lut_a_name>
+<lut_b>3fcd66</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCD66</lut_b_name>
+<lut_r>3fcd76</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCD76</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ee4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9EE4</lut_a_name>
+<lut_b>3f9f04</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9F04</lut_b_name>
+<lut_r>3f9f24</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9F24</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa4e4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA4E4</lut_a_name>
+<lut_b>3fa4f4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA4F4</lut_b_name>
+<lut_r>3fa504</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA504</lut_r_name>
+<input_a>3fd32b</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>24</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f98a4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F98A4</lut_a_name>
+<lut_b>3f98b4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F98B4</lut_b_name>
+<lut_r>3f98cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F98CC</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd00e</input_b>
+<input_b_name>off_3FD00E</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>24</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f98a4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F98A4</lut_a_name>
+<lut_b>3f98b4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F98B4</lut_b_name>
+<lut_r>3f98cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F98CC</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9acc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9ACC</lut_a_name>
+<lut_b>3f9adc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9ADC</lut_b_name>
+<lut_r>3f9ae4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9AE4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>3fd00e</input_b>
+<input_b_name>off_3FD00E</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9acc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9ACC</lut_a_name>
+<lut_b>3f9adc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9ADC</lut_b_name>
+<lut_r>3f9ae4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9AE4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9d04</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9D04</lut_a_name>
+<lut_b>3f9d0c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9D0C</lut_b_name>
+<lut_r>3f9d14</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9D14</lut_r_name>
+<input_a>3fd1e7</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa6bc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA6BC</lut_a_name>
+<lut_b>3fa6c0</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA6C0</lut_b_name>
+<lut_r>3fa6d0</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA6D0</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa364</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA364</lut_a_name>
+<lut_b>3fa374</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA374</lut_b_name>
+<lut_r>3fa384</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA384</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9764</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9764</lut_a_name>
+<lut_b>3f9774</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9774</lut_b_name>
+<lut_r>3f9784</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9784</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>2f8028</lut_a>
+<lut_a_name>LUT_A_3D_unk_2F8028</lut_a_name>
+<lut_b>2f8038</lut_b>
+<lut_b_name>LUT_B_3D_unk_2F8038</lut_b_name>
+<lut_r>2f8048</lut_r>
+<lut_r_name>LUT_R_3D_unk_2F8048</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcc36</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCC36</lut_a_name>
+<lut_b>3fcc46</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCC46</lut_b_name>
+<lut_r>3fcc56</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCC56</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fba6c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FBA6C</lut_a_name>
+<lut_b>3fba7c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FBA7C</lut_b_name>
+<lut_r>3fba8c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FBA8C</lut_r_name>
+<input_a>3fd356</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb32c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB32C</lut_a_name>
+<lut_b>3fb33c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB33C</lut_b_name>
+<lut_r>3fb34c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB34C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb44c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB44C</lut_a_name>
+<lut_b>3fb45c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB45C</lut_b_name>
+<lut_r>3fb46c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB46C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb56c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB56C</lut_a_name>
+<lut_b>3fb57c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB57C</lut_b_name>
+<lut_r>3fb58c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB58C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb68c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB68C</lut_a_name>
+<lut_b>3fb69c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB69C</lut_b_name>
+<lut_r>3fb6ac</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB6AC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb7ac</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB7AC</lut_a_name>
+<lut_b>3fb7bc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB7BC</lut_b_name>
+<lut_r>3fb7cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB7CC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb8cc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB8CC</lut_a_name>
+<lut_b>3fb8dc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB8DC</lut_b_name>
+<lut_r>3fb8ec</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB8EC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb9ec</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB9EC</lut_a_name>
+<lut_b>3fb9f4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB9F4</lut_b_name>
+<lut_r>3fb9fc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB9FC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fced6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCED6</lut_a_name>
+<lut_b>3fcede</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCEDE</lut_b_name>
+<lut_r>3fceee</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCEEE</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd010</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcbe6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCBE6</lut_a_name>
+<lut_b>3fcbee</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCBEE</lut_b_name>
+<lut_r>3fcbf6</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCBF6</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa604</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA604</lut_a_name>
+<lut_b>3fa608</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA608</lut_b_name>
+<lut_r>3fa60c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA60C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa61c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA61C</lut_a_name>
+<lut_b>3fa620</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA620</lut_b_name>
+<lut_r>3fa624</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA624</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa634</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA634</lut_a_name>
+<lut_b>3fa638</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA638</lut_b_name>
+<lut_r>3fa63c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA63C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa604</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA604</lut_a_name>
+<lut_b>3fa608</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA608</lut_b_name>
+<lut_r>3fa60c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA60C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f95b6</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F95B6</lut_a_name>
+<lut_r>3f95c6</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F95C6</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f95b6</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F95B6</lut_a_name>
+<lut_r>3f95c6</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F95C6</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f95f8</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F95F8</lut_a_name>
+<lut_r>3f9600</lut_r>
+<lut_r_name>LUT_R_2D_unk_F9600</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9a8c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9A8C</lut_a_name>
+<lut_r>3f9a9c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9A9C</lut_r_name>
+<input_a>3fd0a3</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9bc4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BC4</lut_a_name>
+<lut_r>3f9bd4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BD4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9c04</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9C04</lut_a_name>
+<lut_r>3f9c14</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C14</lut_r_name>
+<input_a>3fd0a3</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2ac</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2AC</lut_a_name>
+<lut_r>3fb2bc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB2BC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2cc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2CC</lut_a_name>
+<lut_r>3fb2d4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB2D4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb31c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB31C</lut_a_name>
+<lut_r>3fb324</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB324</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb31c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB31C</lut_a_name>
+<lut_r>3fb324</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB324</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb31c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB31C</lut_a_name>
+<lut_r>3fb324</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB324</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9be4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BE4</lut_a_name>
+<lut_r>3f9bf4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BF4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f967a</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F967A</lut_a_name>
+<lut_r>3f968a</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F968A</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9be4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BE4</lut_a_name>
+<lut_r>3f9bf4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BF4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f967a</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F967A</lut_a_name>
+<lut_r>3f968a</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F968A</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9be4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BE4</lut_a_name>
+<lut_r>3f9bf4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BF4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f967a</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F967A</lut_a_name>
+<lut_r>3f968a</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F968A</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2dc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2DC</lut_a_name>
+<lut_r>3fb2ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB2EC</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2dc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2DC</lut_a_name>
+<lut_r>3fb2ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB2EC</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2dc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2DC</lut_a_name>
+<lut_r>3fb2ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB2EC</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f95d6</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F95D6</lut_a_name>
+<lut_r>3f95e6</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F95E6</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa7f4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA7F4</lut_a_name>
+<lut_r>3fa804</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA804</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9a6c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9A6C</lut_a_name>
+<lut_r>3f9a7c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9A7C</lut_r_name>
+<input_a>3fd0a3</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa814</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA814</lut_a_name>
+<lut_r>3fa81c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA81C</lut_r_name>
+<input_a>3fddec</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9aac</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9AAC</lut_a_name>
+<lut_r>3f9abc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9ABC</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9b74</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9B74</lut_a_name>
+<lut_r>3f9b7c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B7C</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9732</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9732</lut_a_name>
+<lut_r>3f973a</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F973A</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa824</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA824</lut_a_name>
+<lut_r>3fa82c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA82C</lut_r_name>
+<input_a>3fddec</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9b64</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9B64</lut_a_name>
+<lut_r>3f9b6c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B6C</lut_r_name>
+<input_a>3fd0b6</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb22c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB22C</lut_a_name>
+<lut_r>3fb23c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB23C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9b84</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9B84</lut_a_name>
+<lut_r>3f9b94</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B94</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9b84</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9B84</lut_a_name>
+<lut_r>3f9b94</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B94</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9b84</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9B84</lut_a_name>
+<lut_r>3f9b94</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B94</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ba4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BA4</lut_a_name>
+<lut_r>3f9bb4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BB4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ba4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BA4</lut_a_name>
+<lut_r>3f9bb4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BB4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ba4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BA4</lut_a_name>
+<lut_r>3f9bb4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9BB4</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa7c4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA7C4</lut_a_name>
+<lut_r>3fa7cc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA7CC</lut_r_name>
+<input_a>3fd00a</input_a>
+<input_a_name>unk_3FD00A</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa7d4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA7D4</lut_a_name>
+<lut_r>3fa7dc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA7DC</lut_r_name>
+<input_a>3fd00b</input_a>
+<input_a_name>unk_3FD00B</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa7e4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA7E4</lut_a_name>
+<lut_r>3fa7ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA7EC</lut_r_name>
+<input_a>3fd00c</input_a>
+<input_a_name>unk_3FD00C</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9c44</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9C44</lut_a_name>
+<lut_r>3f9c54</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C54</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9c24</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9C24</lut_a_name>
+<lut_r>3f9c34</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C34</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9c64</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9C64</lut_a_name>
+<lut_r>3f9c74</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C74</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ca4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9CA4</lut_a_name>
+<lut_r>3f9cb4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9CB4</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9c84</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9C84</lut_a_name>
+<lut_r>3f9c94</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C94</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9cc4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9CC4</lut_a_name>
+<lut_r>3f9cd4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9CD4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa884</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA884</lut_a_name>
+<lut_r>3fa888</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA888</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9884</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9884</lut_a_name>
+<lut_r>3f9894</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9894</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb2fc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB2FC</lut_a_name>
+<lut_r>3fb304</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB304</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa4c4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA4C4</lut_a_name>
+<lut_r>3fa4d4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA4D4</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9a4c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9A4C</lut_a_name>
+<lut_r>3f9a5c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9A5C</lut_r_name>
+<input_a>3fd0ac</input_a>
+<input_a_name>unk_3FD0AC</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa494</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA494</lut_a_name>
+<lut_r>3fa4a4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA4A4</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa324</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA324</lut_a_name>
+<lut_r>3fa334</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA334</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa344</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA344</lut_a_name>
+<lut_r>3fa354</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA354</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fbb8c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBB8C</lut_a_name>
+<lut_r>3fbb94</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBB94</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb30c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB30C</lut_a_name>
+<lut_r>3fb314</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB314</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fba4c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBA4C</lut_a_name>
+<lut_r>3fba54</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBA54</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fba5c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBA5C</lut_a_name>
+<lut_r>3fba64</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBA64</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fba3c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBA3C</lut_a_name>
+<lut_r>3fba44</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBA44</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fce76</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FCE76</lut_a_name>
+<lut_r>3fce7e</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FCE7E</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fce96</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FCE96</lut_a_name>
+<lut_r>3fcea6</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FCEA6</lut_r_name>
+<input_a>3fd010</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fceb6</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FCEB6</lut_a_name>
+<lut_r>3fcec6</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FCEC6</lut_r_name>
+<input_a>3fd010</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcf6e</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FCF6E</lut_a_name>
+<lut_r>3fcf76</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FCF76</lut_r_name>
+<input_a>3fd32b</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb24c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB24C</lut_a_name>
+<lut_r>3fb254</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB254</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa4b4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA4B4</lut_a_name>
+<lut_r>3fa4bc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA4BC</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa64c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA64C</lut_a_name>
+<lut_r>3fa65c</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA65C</lut_r_name>
+<input_a>3fde0d</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fb1ac</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB1AC</lut_a_name>
+<lut_r>3fb1ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB1EC</lut_r_name>
+<input_a>3fd30c</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fb1ac</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB1AC</lut_a_name>
+<lut_r>3fb1ec</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB1EC</lut_r_name>
+<input_a>3fd2c4</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fbb9c</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBB9C</lut_a_name>
+<lut_r>3fbbbc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBBBC</lut_r_name>
+<input_a>3fe096</input_a>
+<input_a_name></input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fbbdc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBBDC</lut_a_name>
+<lut_r>3fbbfc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBBFC</lut_r_name>
+<input_a>3fdb4e</input_a>
+<input_a_name>unk_3FDB4E</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fbbdc</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBBDC</lut_a_name>
+<lut_r>3fbbfc</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBBFC</lut_r_name>
+<input_a>3fdb4e</input_a>
+<input_a_name>unk_3FDB4E</input_a_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa8dc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA8DC</lut_a_name>
+<lut_b>3fa8e4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA8E4</lut_b_name>
+<lut_r>3fa8ec</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA8EC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9d54</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9D54</lut_a_name>
+<lut_b>3f9d5c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9D5C</lut_b_name>
+<lut_r>3f9d64</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9D64</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa66c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA66C</lut_a_name>
+<lut_b>3fa674</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA674</lut_b_name>
+<lut_r>3fa67c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA67C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fad6c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FAD6C</lut_a_name>
+<lut_b>3fad8c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FAD8C</lut_b_name>
+<lut_r>3fadac</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FADAC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa92c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA92C</lut_a_name>
+<lut_b>3fa94c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA94C</lut_b_name>
+<lut_r>3fa96c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA96C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa88c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA88C</lut_a_name>
+<lut_b>3fa894</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA894</lut_b_name>
+<lut_r>3fa89c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA89C</lut_r_name>
+<input_a>3fd00e</input_a>
+<input_a_name>off_3FD00E</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f969a</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F969A</lut_a_name>
+<lut_b>3f96a2</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F96A2</lut_b_name>
+<lut_r>3f96b2</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F96B2</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb25c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB25C</lut_a_name>
+<lut_b>3fb264</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB264</lut_b_name>
+<lut_r>3fb26c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB26C</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>3f8ce8</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa834</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA834</lut_a_name>
+<lut_b>3fa83c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA83C</lut_b_name>
+<lut_r>3fa844</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA844</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcd56</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCD56</lut_a_name>
+<lut_b>3fcd66</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCD66</lut_b_name>
+<lut_r>3fcd76</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCD76</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9ee4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9EE4</lut_a_name>
+<lut_b>3f9f04</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9F04</lut_b_name>
+<lut_r>3f9f24</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9F24</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa4e4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA4E4</lut_a_name>
+<lut_b>3fa4f4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA4F4</lut_b_name>
+<lut_r>3fa504</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA504</lut_r_name>
+<input_a>3fd32b</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>24</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f98a4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F98A4</lut_a_name>
+<lut_b>3f98b4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F98B4</lut_b_name>
+<lut_r>3f98cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F98CC</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd00e</input_b>
+<input_b_name>off_3FD00E</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>24</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f98a4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F98A4</lut_a_name>
+<lut_b>3f98b4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F98B4</lut_b_name>
+<lut_r>3f98cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F98CC</lut_r_name>
+<input_a>3fd229</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9acc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9ACC</lut_a_name>
+<lut_b>3f9adc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9ADC</lut_b_name>
+<lut_r>3f9ae4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9AE4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>3fd00e</input_b>
+<input_b_name>off_3FD00E</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9acc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9ACC</lut_a_name>
+<lut_b>3f9adc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9ADC</lut_b_name>
+<lut_r>3f9ae4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9AE4</lut_r_name>
+<input_a>3fd0a2</input_a>
+<input_a_name>unk_3FD0A2</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9d04</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9D04</lut_a_name>
+<lut_b>3f9d0c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9D0C</lut_b_name>
+<lut_r>3f9d14</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9D14</lut_r_name>
+<input_a>3fd1e7</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa6bc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA6BC</lut_a_name>
+<lut_b>3fa6c0</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA6C0</lut_b_name>
+<lut_r>3fa6d0</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA6D0</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa364</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA364</lut_a_name>
+<lut_b>3fa374</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA374</lut_b_name>
+<lut_r>3fa384</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA384</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9764</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9764</lut_a_name>
+<lut_b>3f9774</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9774</lut_b_name>
+<lut_r>3f9784</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9784</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>2f8028</lut_a>
+<lut_a_name>LUT_A_3D_unk_2F8028</lut_a_name>
+<lut_b>2f8038</lut_b>
+<lut_b_name>LUT_B_3D_unk_2F8038</lut_b_name>
+<lut_r>2f8048</lut_r>
+<lut_r_name>LUT_R_3D_unk_2F8048</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcc36</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCC36</lut_a_name>
+<lut_b>3fcc46</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCC46</lut_b_name>
+<lut_r>3fcc56</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCC56</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd0ac</input_b>
+<input_b_name>unk_3FD0AC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fba6c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FBA6C</lut_a_name>
+<lut_b>3fba7c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FBA7C</lut_b_name>
+<lut_r>3fba8c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FBA8C</lut_r_name>
+<input_a>3fd356</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb32c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB32C</lut_a_name>
+<lut_b>3fb33c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB33C</lut_b_name>
+<lut_r>3fb34c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB34C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb44c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB44C</lut_a_name>
+<lut_b>3fb45c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB45C</lut_b_name>
+<lut_r>3fb46c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB46C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb56c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB56C</lut_a_name>
+<lut_b>3fb57c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB57C</lut_b_name>
+<lut_r>3fb58c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB58C</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb68c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB68C</lut_a_name>
+<lut_b>3fb69c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB69C</lut_b_name>
+<lut_r>3fb6ac</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB6AC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb7ac</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB7AC</lut_a_name>
+<lut_b>3fb7bc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB7BC</lut_b_name>
+<lut_r>3fb7cc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB7CC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb8cc</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB8CC</lut_a_name>
+<lut_b>3fb8dc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB8DC</lut_b_name>
+<lut_r>3fb8ec</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB8EC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fb9ec</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB9EC</lut_a_name>
+<lut_b>3fb9f4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB9F4</lut_b_name>
+<lut_r>3fb9fc</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB9FC</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fced6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCED6</lut_a_name>
+<lut_b>3fcede</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCEDE</lut_b_name>
+<lut_r>3fceee</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCEEE</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd010</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fcbe6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FCBE6</lut_a_name>
+<lut_b>3fcbee</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FCBEE</lut_b_name>
+<lut_r>3fcbf6</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FCBF6</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa604</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA604</lut_a_name>
+<lut_b>3fa608</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA608</lut_b_name>
+<lut_r>3fa60c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA60C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa61c</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA61C</lut_a_name>
+<lut_b>3fa620</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA620</lut_b_name>
+<lut_r>3fa624</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA624</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa634</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA634</lut_a_name>
+<lut_b>3fa638</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA638</lut_b_name>
+<lut_r>3fa63c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA63C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa604</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA604</lut_a_name>
+<lut_b>3fa608</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA608</lut_b_name>
+<lut_r>3fa60c</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA60C</lut_r_name>
+<input_a>3f9018</input_a>
+<input_a_name></input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_HalfWord</function>
+<xref_result></xref_result>
+<lut_a>3fc9a6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FC9A6</lut_a_name>
+<lut_b>3fc9c6</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FC9C6</lut_b_name>
+<lut_r>3fc9e6</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FC9E6</lut_r_name>
+<input_a>3fd230</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd304</input_b>
+<input_b_name>off_3FD304</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa774</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA774</lut_a_name>
+<lut_b>3fa77c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA77C</lut_b_name>
+<lut_r>3fa784</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA784</lut_r_name>
+<input_a>3fd0a3</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3fa774</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA774</lut_a_name>
+<lut_b>3fa77c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA77C</lut_b_name>
+<lut_r>3fa784</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA784</lut_r_name>
+<input_a>3fd0c4</input_a>
+<input_a_name></input_a_name>
+<input_b>3fd0a2</input_b>
+<input_b_name>unk_3FD0A2</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9da4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9DA4</lut_a_name>
+<lut_b>3f9dac</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9DAC</lut_b_name>
+<lut_r>3f9db4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9DB4</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9df4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9DF4</lut_a_name>
+<lut_b>3f9dfc</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9DFC</lut_b_name>
+<lut_r>3f9e04</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9E04</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9e44</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9E44</lut_a_name>
+<lut_b>3f9e4c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9E4C</lut_b_name>
+<lut_r>3f9e54</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9E54</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result></xref_result>
+<lut_a>3f9e94</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9E94</lut_a_name>
+<lut_b>3f9e9c</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9E9C</lut_b_name>
+<lut_r>3f9ea4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9EA4</lut_r_name>
+<input_a>3fd228</input_a>
+<input_a_name>unk_3FD228</input_a_name>
+<input_b>3fd32b</input_b>
+<input_b_name></input_b_name>
+</map>
+</maps>
+</t4e>

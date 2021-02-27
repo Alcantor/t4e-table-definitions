@@ -1,0 +1,4549 @@
+<!-- ================================================================ -->
+<!--            Calibration Definition for CAN only T4e's             -->
+<!-- (c) CyberNet, 2016                                               -->
+<!--                                                                  -->
+<!-- version: 1.0 - added scalars                                     -->
+<!-- version: 1.1 - added conversions                                 -->
+<!-- version: 1.2 - migrated all datalogger vars to use conversions   -->
+<!-- version: 1.3 - moved to CALRAM_Data+<offset> addressing          -->
+<!-- version: 1.3.1 - added ECU Shutdown MAP + more OBD M22 pids      -->
+<!-- ================================================================ -->
+<t4e>
+<xmlfile_version>14</xmlfile_version>
+<calfile_headersize>0x4C</calfile_headersize>
+<calfile_vaddr>0x18B4</calfile_vaddr>
+<calfile_vin>0x3C7C</calfile_vin> 
+<!-- <calfile_model>0x3C8E</calfile_model> -->
+<calfile_model>0x3656</calfile_model>
+<calfile_version>0x0</calfile_version>
+<calfile_lockstate>0x3CAE</calfile_lockstate>
+<calfile_checksum>0x3CC2</calfile_checksum>
+<!-- ================================================================ -->
+<!--   CONVERSION FORMULARS FOR READING/WRITING CALIBRATION DATA      -->
+<!-- ================================================================ -->
+<conversions> 
+  <type name='adc_voltage18'>
+    <calc_read>VAR/1024*18</calc_read>
+    <calc_write>VAR*1024/18</calc_write>
+    <unit_read>V</unit_read>
+    <precision>2</precision>
+    <min>0</min>
+    <max>18</max>
+  </type>
+  <type name='adc_voltage4x18'>
+    <calc_read>VAR*4*18/1000</calc_read>
+    <calc_write></calc_write>
+    <unit_read>V</unit_read>
+    <precision>1</precision>
+    <min>0</min>
+    <max>18</max>
+  </type>  
+  <type name='adc_voltage5'>
+    <calc_read>VAR/1024*5</calc_read>
+    <calc_write>VAR*1024/5</calc_write>
+    <unit_read>V</unit_read>
+    <precision>2</precision>
+    <min>0</min>
+    <max>5</max>
+  </type>
+  <type name='rpm480k16'>
+    <calc_read>250000/(480000/VAR+16)*60</calc_read>
+    <calc_write>480000/(250000/(VAR/60)-16)</calc_write>
+    <unit_read>RPM</unit_read>
+    <min>0</min>
+    <max>10000</max>
+  </type>
+  <type name='rpmx8'>
+    <calc_read>VAR*8</calc_read>
+    <calc_write>VAR/8</calc_write>
+    <unit_read>RPM</unit_read>
+    <min>0</min>
+    <max>10000</max>
+  </type>
+  <type name='rpmx4'>
+    <calc_read>VAR*4</calc_read>
+    <calc_write>VAR/4</calc_write>
+    <unit_read>RPM</unit_read>
+    <min>0</min>
+    <max>10000</max>
+  </type>
+  <type name='injlatency'>
+    <calc_read>VAR*20</calc_read>
+    <calc_write>VAR/20</calc_write>
+    <unit_read>uS</unit_read>
+  </type>
+  <type name='5sectime'>
+    <calc_read>VAR*5</calc_read>
+    <calc_write>VAR/5</calc_write>
+    <unit_read>s</unit_read>
+  </type>
+  <type name='5msectime'>
+    <calc_read>VAR/200</calc_read>
+    <calc_write>VAR*200</calc_write>
+    <unit_read>s</unit_read>
+  </type>
+  <type name='100msectime'>
+    <calc_read>VAR/10</calc_read>
+    <calc_write>VAR*10</calc_write>
+    <unit_read>s</unit_read>
+    <min>0</min>
+    <max>6554</max>
+  </type>
+  <type name='10usectime'>
+    <calc_read>VAR*100</calc_read>
+    <calc_write>VAR/100</calc_write>
+    <unit_read>ms</unit_read>
+    <min>0</min>
+    <max>6554</max>
+  </type>
+  <type name='ignspark64'>
+    <calc_read>VAR*64/1000</calc_read>
+    <calc_write>VAR/64*1000</calc_write>
+    <unit_read>ms</unit_read>
+    <precision>3</precision>
+  </type>
+  <type name='vvtruntime'>
+    <calc_read>VAR*20/200</calc_read>
+    <calc_write>VAR*200/20</calc_write>
+    <unit_read>s</unit_read>    
+  </type>
+  <type name='throttlepos'>
+    <calc_read>VAR/255*100</calc_read>
+    <calc_write>VAR*255/100</calc_write>
+    <unit_read>%</unit_read>
+    <precision>1</precision>
+    <min>0</min>
+    <max>100</max>
+  </type>
+  <type name='rpm_deviation2'>
+    <calc_read>VAR*2</calc_read>
+    <calc_write>VAR/2</calc_write>
+    <unit_read>RPM</unit_read>
+  </type>
+  <type name='rpmrevlimit'>
+    <calc_read>VAR*10+6000</calc_read>
+    <calc_write>(VAR-6000)/10</calc_write>
+    <unit_read>RPM</unit_read>
+  </type>
+  <type name='idleerror'>
+    <calc_read>VAR*4-512</calc_read>
+    <calc_write>(VAR+512)/4</calc_write>
+    <unit_read>RPM</unit_read>
+  </type>
+  <type name='maf10'>
+    <calc_read>VAR/10</calc_read>
+    <calc_write>VAR*10</calc_write>
+    <unit_read>g/sec</unit_read>
+    <precision>2</precision>
+  </type>
+  <type name='maf100'>
+    <calc_read>VAR/100</calc_read>
+    <calc_write>VAR*100</calc_write>
+    <unit_read>g/sec</unit_read>
+    <precision>2</precision>
+  </type>
+  <type name='mafaccumulated'>
+    <calc_read>VAR*1000*16</calc_read>
+    <calc_write>VAR/1000/16</calc_write>
+    <unit_read>g</unit_read>
+    <precision>0</precision>
+  </type>
+  <type name='mafaccumulated_div_8'>
+    <calc_read>VAR*8</calc_read>
+    <calc_write>VAR/8</calc_write>
+    <unit_read>kg</unit_read>
+    <precision>0</precision>
+  </type>
+  <type name='ect'>
+    <calc_read>(VAR*160/256)-40</calc_read>    
+    <calc_write>(VAR+40)/160*256</calc_write>
+    <precision>1</precision>
+    <unit_read>C</unit_read>    
+    <min>-40</min>
+    <max>120</max>
+  </type>
+  <type name='iat'>
+    <calc_read>(VAR*160/256)-40</calc_read>
+    <calc_write>(VAR+40)/160*256</calc_write>
+    <calc_write></calc_write>
+    <precision>1</precision>
+    <unit_read>C</unit_read>  
+    <min>-40</min>
+    <max>120</max>  
+  </type>
+  <type name='afr100'>
+    <calc_read>VAR/100</calc_read>
+    <calc_write>VAR*100</calc_write>    
+    <precision>1</precision>
+    <min>10</min>
+    <max>20</max>    
+  </type>
+  <type name='lambda100'>
+    <calc_read>VAR/100</calc_read>
+    <calc_write>VAR*100</calc_write>    
+    <precision>2</precision>
+    <min>0,8</min>
+    <max>1,3</max>
+  </type>
+  <type name='fueltrimcan80'>
+    <calc_read>VAR/20</calc_read>    
+    <calc_write>VAR*2</calc_write>
+    <unit_read>%</unit_read>
+    <precision>2</precision>
+    <castsigned>true</castsigned>
+    <min>-30</min>
+    <max>+30</max>
+  </type>
+  <type name='fueltrim'>
+    <calc_read>((VAR*8)/125+128)*(100/128)-100</calc_read>    
+    <calc_write></calc_write>
+    <unit_read>%</unit_read>
+    <precision>2</precision>
+  </type>
+  <type name='fueltrim_neg'>
+    <calc_read>-1*(((VAR*8)/125+128)*(100/128)-100)</calc_read>    
+    <calc_write></calc_write>
+    <unit_read>%</unit_read>
+    <precision>2</precision>
+  </type>  
+  <type name='fuellevel'>
+    <calc_read>(VAR-0xE)*256/0x9C*100/255</calc_read>
+    <calc_write></calc_write>
+    <unit_read>%</unit_read>
+    <min>0</min>
+    <max>120</max>
+  </type>
+  <type name='fuelafr'>
+    <calc_read>(VAR*5+500)/100</calc_read>
+    <calc_write></calc_write>        
+    <unit_read></unit_read>
+    <precision>2</precision>
+    <min>8</min>
+    <max>20</max>
+  </type>
+  <type name='kph'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>        
+    <unit_read>kph</unit_read>
+    <min>0</min>
+    <max>300</max>
+  </type>
+  <type name='baro'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>        
+    <unit_read>mbar</unit_read>
+    <min>0</min>
+    <max>1100</max>
+  </type>
+  <type name='baro4'>
+    <calc_read>VAR*4</calc_read>
+    <calc_write>VAR/4</calc_write>        
+    <unit_read>mbar</unit_read>
+    <min>0</min>
+    <max>1100</max>
+  </type>
+  <type name='iacval'>
+    <calc_read>VAR/10240</calc_read>
+    <calc_write>VAR*10240</calc_write>
+    <unit_read>g/sec</unit_read>  
+  </type>  
+  <type name='throttlepos'>
+    <calc_read>VAR*100/255</calc_read>
+    <calc_write>VAR/100*255</calc_write>
+    <unit_read>%</unit_read>  
+    <min>0</min>
+    <max>100</max>
+  </type>     
+  <type name='o2amps'>    
+    <calc_read>VAR/1000</calc_read>
+    <calc_write>VAR*1000</calc_write>
+    <precision>3</precision>
+    <unit_read>A</unit_read>
+    <min>0</min>
+    <max>3</max>
+  </type>
+  <type name='wheelspeed'>
+    <calc_read>VAR/100</calc_read>
+    <calc_write>VAR*100</calc_write>
+    <precision>1</precision>
+    <unit_read>kph</unit_read>
+    <min>0</min>
+    <max>300</max>
+  </type>
+  <type name='obdtemp'>
+    <calc_read>VAR-40</calc_read>
+    <calc_write>VAR+40</calc_write>
+    <unit_read>C</unit_read>   
+    <min>-40</min>
+    <max>120</max>   
+  </type>   
+  <type name='load'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read>g/sec</unit_read>  
+    <min>0</min>
+    <max>200</max>
+  </type>    
+  <type name='load54'>
+    <calc_read>VAR/5.4</calc_read>
+    <calc_write>VAR*5.4</calc_write>
+    <unit_read>g/cyl</unit_read>      
+  </type>    
+  <type name='obdload'>
+    <calc_read>VAR*100/255</calc_read>
+    <calc_write>VAR/100*255</calc_write>
+    <unit_read>%</unit_read>  
+    <min>0</min>
+    <max>200</max>
+  </type>         
+  <type name='idlerpm512'>
+    <calc_read>VAR*4-512</calc_read>
+    <calc_write>(VAR+512)/4</calc_write>
+    <unit_read>RPM</unit_read>
+  </type>  
+  <type name='idlerpm500'>
+    <calc_read>VAR*4+500</calc_read>
+    <calc_write>(VAR-500)/4</calc_write>
+    <unit_read>RPM</unit_read>
+  </type>
+  <type name='idlerpm600'>
+    <calc_read>VAR*5+600</calc_read>
+    <calc_write>(VAR/5)-600</calc_write>
+    <unit_read>RPM</unit_read>  
+    <min>0</min>
+    <max>1600</max>
+  </type>
+  <type name='idlerpm'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read>RPM</unit_read>  
+    <min>0</min>
+    <max>1600</max>
+  </type>
+  <type name='timingadv2'>
+    <calc_read>(VAR/2-64)/2</calc_read>
+    <calc_write></calc_write>
+    <unit_read>Deg before TDC</unit_read>
+    <precision>1</precision>
+    <min>-50</min>
+    <max>50</max>
+  </type>
+  <type name='obdtimingadv'>
+    <calc_read>VAR/2-64</calc_read>
+    <calc_write></calc_write>
+    <unit_read>Deg before TDC</unit_read>  
+    <precision>1</precision>
+    <min>-50</min>
+    <max>50</max>
+  </type>           
+  <type name='obdrpm'>
+    <calc_read>VAR/4</calc_read>
+    <calc_write>VAR*4</calc_write>
+    <unit_read>RPM</unit_read>  
+    <min>0</min>
+    <max>10000</max>
+  </type>             
+  <type name='obdfueltrim'>
+    <calc_read>VAR*100/128-100</calc_read>
+    <calc_write>VAR/100*128+100</calc_write>
+    <unit_read>%</unit_read>  
+    <min>-30</min>
+    <max>30</max>
+  </type>   
+  <type name='pcode'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read></unit_read>
+    <min>0</min>
+    <max>9999</max>
+  </type> 
+  <type name='gear'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read></unit_read>
+    <min>0</min>
+    <max>6</max>
+  </type>   
+  <type name='rpm_deviation'>
+    <calc_read>VAR Xor 0x80</calc_read>
+    <calc_write>VAR Xor 0x80</calc_write>
+    <unit_read></unit_read>
+    <min>-127</min>
+    <max>+128</max>
+  </type> 
+  <type name='rpm_deviation_word'>
+    <calc_read>VAR</calc_read>
+    <calc_write></calc_write>
+    <unit_read>RPM</unit_read>
+    <min>-10000</min>
+    <max>+10000</max>
+    <castsigned>true</castsigned>
+  </type>    
+  <type name='rpm'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read>RPM</unit_read>    
+  </type>  
+  <type name='tpspercent4'>
+    <calc_read>VAR/4/255*100</calc_read>
+    <calc_write></calc_write>
+    <unit_read>%</unit_read>
+    <precision>2</precision>
+    <min>0</min>
+    <max>+100</max>
+  </type>  
+  <type name='tpspercentx4'>
+    <calc_read>(VAR*4)/255*100</calc_read>
+    <calc_write></calc_write>
+    <unit_read>%</unit_read>
+    <precision>0</precision>
+    <min>0</min>
+    <max>+100</max>
+  </type>  
+  <type name='evapperc'>
+    <calc_read>VAR/255*100</calc_read>
+    <calc_write>VAR*255/100</calc_write>
+    <unit_read>%</unit_read>
+    <precision>2</precision>
+    <min>0</min>
+    <max>100</max>
+  </type>
+  <type name='raw'>
+    <calc_read>VAR</calc_read>
+    <calc_write>VAR</calc_write>
+    <unit_read></unit_read>
+  </type>
+</conversions>
+<!-- ================================================================ -->
+<!--                       CAN 0x50 Datalogger                        -->
+<!-- ================================================================ -->
+<datalogger>  
+<var50>
+  <name>ADC Throttle Body TPS2</name>  
+  <description>Direct ADC reading of RE3 ECU pin</description>
+  <addr>304A82</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Baro/Pressure Sensor</name>  
+  <description>Direct ADC reading of ECU internal sensor</description>
+  <addr>304A84</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_baro_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Throttle Pedal PPS1</name>  
+  <description>Direct ADC reading of LD1 ECU pin</description>
+  <addr>304A86</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_pps1_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Throttle Pedal PPS2</name>  
+  <description>Direct ADC reading of LD2 ECU pin</description>
+  <addr>304A88</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_pps2_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Oil Pressure Switch</name>  
+  <description>Direct ADC reading of RA2 ECU pin</description>
+  <addr>304A8A</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Evap Pressure Sensor</name>  
+  <description>Direct ADC reading of LC1 ECU pin</description>
+  <addr>304A8C</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Intake Air Temp (via TMAF)</name>  
+  <description>Direct ADC reading of RB3 (1ZZ) ECU pin</description>
+  <addr>304A90</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_iat_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Oil Pressure Switch VVTi</name>  
+  <description>Direct ADC reading of RB2 ECU pin</description>
+  <addr>304A92</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Turbo/Compressor Boost Sensor A (TMAP)</name>  
+  <description>Direct ADC reading of RB1 ECU pin</description>
+  <addr>304A94</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC MAF Sensor</name>  
+  <description>Direct ADC reading of RB4 ECU pin</description>
+  <addr>304A96</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_maf_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Variable Traction Control Pot</name>  
+  <description>Direct ADC reading of LD4 ECU pin</description>
+  <addr>304A98</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Intake Air Temp (2ZZ)</name>  
+  <description>Only available in 2ZZ engine cars</description>
+  <addr>304A9A</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_iat2zz_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Fuel Level Sensor</name>  
+  <description>Direct ADC reading of LE3 ECU pin</description>
+  <addr>304A9E</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_fuellevel_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Engine Coolant Temp Sensor</name>  
+  <description>Direct ADC reading of RC3 ECU pin</description>
+  <addr>304E82</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_ect_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC LTC Switch</name>  
+  <description>Direct ADC reading of RC2 ECU pin</description>
+  <addr>304E84</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Pre Cat O2 Sensor</name>  
+  <description>Direct ADC reading of LA3 ECU pin</description>
+  <addr>304E86</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_precat_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Pre Cat O2 Heater current</name>  
+  <description>Current shunt reading for heater circuit</description>
+  <addr>304E88</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_precat_current</link_name>
+</var50>
+<var50>
+  <name>ADC Post Cat O2 Sensor</name>  
+  <description>Direct ADC reading of LB3 ECU pin</description>
+  <addr>304E8A</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_postcat_voltage</link_name>
+</var50>
+<var50>
+  <name>ADC Post Cat O2 Heater current</name>  
+  <description>Current shunt reading for heater circuit</description>
+  <addr>304E8C</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+  <link_name>adc_postcat_current</link_name>
+</var50>
+<var50>
+  <name>ADC Knock Sensor (ST9119D)</name>  
+  <description>Knocksensor signal processed by ST9119D</description>
+  <addr>304E8E</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Knock Sensor (OPA)</name>  
+  <description>Knocksensor signal processed by OpAmp - RC4 ECU pin</description>
+  <addr>304E90</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>ADC Control Module Voltage</name>  
+  <description>Direct reading of ECU power pins</description>
+  <addr>304E94</addr>
+  <size>2</size>
+  <conversion>adc_voltage18</conversion>
+</var50>
+<var50>
+  <name>ADC Control Module Voltage (IGN)</name>  
+  <description>Direct reading of LG3 ECU pin</description>
+  <addr>304E96</addr>
+  <size>2</size>
+  <conversion>adc_voltage18</conversion>
+</var50>
+<var50>
+  <name>ADC AC Fan Request</name>  
+  <description>Direct reading of LE1 ECU pin</description>
+  <addr>304E9A</addr>
+  <size>2</size>
+  <conversion>adc_voltage5</conversion>
+</var50>
+<var50>
+  <name>DEBUG 07 1ZZ - EngineCoolantTemp_LPF Raw</name>  
+  <description>0x3FD666</description>
+  <addr>3FD666</addr>
+  <size>1</size>
+</var50>
+<var50>
+  <name>DEBUG 07 1ZZ - OBD_M1_P5_EngineCoolantTemp_LU_Byte Raw</name>  
+  <description>0x3FD66A</description>
+  <addr>3FD66A</addr>
+  <size>2</size>
+</var50>
+<var50>
+  <name>DEBUG 07 1ZZ - 3F81D1</name>  
+  <description>0x3F81D1</description>
+  <addr>3F81D1</addr>
+  <size>1</size>
+</var50>
+
+<!-- ================================================================ -->
+<!--                      OBD Datalogger Mode 0x1                     -->
+<!-- ================================================================ -->
+<varobd>  
+  <name>Freeze DTC</name>
+  <description>Freeze DTC</description>
+  <mode>1</mode>
+  <pid>2</pid>
+  <size>2</size>    
+</varobd>
+<varobd>  
+  <name>Fuel System Status</name>
+  <description>Fuel System Status</description>
+  <mode>1</mode>
+  <pid>3</pid>
+  <size>2</size>    
+</varobd>
+<varobd>  
+  <name>Calc Engine Load</name>
+  <description>Calculated engine load</description>
+  <mode>1</mode>
+  <pid>4</pid>
+  <size>1</size>
+  <conversion>obdload</conversion>
+</varobd>
+<varobd>  
+  <name>ECT</name>
+  <description>Engine Coolant Temperature</description>
+  <mode>1</mode>
+  <pid>5</pid>
+  <size>1</size>
+  <conversion>obdtemp</conversion>   
+</varobd>
+<varobd>  
+  <name>STFT</name>
+  <description>Short term fuel trim—Bank 1</description>
+  <mode>1</mode>
+  <pid>6</pid>
+  <size>1</size>
+  <conversion>obdfueltrim</conversion>
+</varobd>
+<varobd>  
+  <name>LTFT</name>
+  <description>Long term fuel trim—Bank 1</description>
+  <mode>1</mode>
+  <pid>7</pid>
+  <size>1</size>
+  <conversion>obdfueltrim</conversion>  
+</varobd>
+<varobd>  
+  <name>Engine RPM</name>
+  <description>Engine RPM</description>
+  <mode>1</mode>
+  <pid>C</pid>
+  <size>2</size>
+  <conversion>obdrpm</conversion>
+</varobd>
+<varobd>  
+  <name>Vehicle Speed</name>
+  <description>Vehicle Speed</description>
+  <mode>1</mode>
+  <pid>D</pid>
+  <size>1</size>    
+  <conversion>kph</conversion>
+</varobd>
+<varobd>  
+  <name>Timing Advance</name>
+  <description>Timing Advance</description>
+  <mode>1</mode>
+  <pid>E</pid>
+  <size>1</size>  
+  <conversion>obdtimingadv</conversion>
+</varobd>
+<varobd>  
+  <name>Intake Air Temp</name>
+  <description>Intake Air Temperature</description>
+  <mode>1</mode>
+  <pid>F</pid>
+  <size>1</size>  
+  <conversion>obdtemp</conversion> 
+</varobd>
+<varobd>  
+  <name>MAF AirFlow Rate</name>
+  <description>MAF AirFlow Rate</description>
+  <mode>1</mode>
+  <pid>10</pid>
+  <size>2</size>  
+  <conversion>maf100</conversion>  
+</varobd>
+<varobd>  
+  <name>Throttle Pos</name>
+  <description>Throttle Position</description>
+  <mode>1</mode>
+  <pid>11</pid>
+  <size>1</size>  
+  <conversion>throttlepos</conversion>    
+</varobd>
+<!-- ================================================================ -->
+<!--                      OBD Datalogger Mode 0x22                    -->
+<!-- ================================================================ -->
+<varobd>  
+  <name>Idle Air Control Learn Value (AC OFF)</name>
+  <description>IAC Learn Value when AirCon is OFF</description>
+  <mode>22</mode>
+  <pid>203</pid>
+  <size>4</size>  
+  <conversion>iacval</conversion>  
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Base Idle Speed related ?</name>
+  <description>Linked to idel speed calc, unknown purpose</description>
+  <mode>22</mode>
+  <pid>204</pid>
+  <size>1</size>   
+  <conversion>rpm480k16</conversion>   
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Final Fuel Injector Pulse Len ?</name>
+  <description>Unclear scaling, needs testing</description>
+  <mode>22</mode>
+  <pid>205</pid>
+  <size>4</size>      
+</varobd>
+<varobd>  
+  <name>VVL Hi/Low Cam</name>
+  <description>1 = High Cam, 0 = Low Cam</description>
+  <mode>22</mode>
+  <pid>209</pid>
+  <size>1</size>      
+</varobd>
+<varobd>  
+  <name>UNKNOWN - MAF/Catalyst1</name>
+  <description>Unknown value calculated from a lookup table that takes MAF as input.</description>
+  <mode>22</mode>
+  <pid>20A</pid>
+  <size>2</size>        
+</varobd>
+<varobd>  
+  <name>UNKNOWN - MAF/Catalyst2</name>
+  <description>Unknown value calculated from a lookup table that takes MAF as input.</description>
+  <mode>22</mode>
+  <pid>20B</pid>
+  <size>2</size>        
+</varobd>
+<varobd>  
+  <name>Gear Number</name>
+  <description>Current Gear calculated by RPM/Speed</description>
+  <mode>22</mode>
+  <pid>20C</pid>
+  <size>1</size>      
+  <conversion>gear</conversion>
+</varobd>
+<varobd>  
+  <name>Target Idle Speed</name>
+  <description>Speed that ECU tries to hold for Idle (after all calculations)</description>
+  <mode>22</mode>
+  <pid>20D</pid>
+  <size>1</size>  
+  <conversion>idlerpm600</conversion>   
+</varobd>
+<varobd>  
+  <name>Target AFR</name>
+  <description>Fuel Air Commanded Ratio / same as Mode 1 Pid 0x44 but 10 times the precision</description>
+  <mode>22</mode>
+  <pid>213</pid>
+  <size>2</size>  
+  <conversion>afr100</conversion>  
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Knock Cylinder 4 ?</name>
+  <description>Unknown 16 Bit Knock related val</description>
+  <mode>22</mode>
+  <pid>218</pid>
+  <size>2</size>  
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Knock Cylinder 1 ?</name>
+  <description>Unknown 16 Bit Knock related val</description>
+  <mode>22</mode>
+  <pid>219</pid>
+  <size>2</size>  
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Knock Cylinder 2 ?</name>
+  <description>Unknown 16 Bit Knock related val</description>
+  <mode>22</mode>
+  <pid>21A</pid>
+  <size>2</size>  
+</varobd>
+<varobd>  
+  <name>UNKNOWN - Knock Cylinder 3 ?</name>
+  <description>Unknown 16 Bit Knock related val</description>
+  <mode>22</mode>
+  <pid>21B</pid>
+  <size>2</size>  
+</varobd>
+<varobd>  
+  <name>Alternate IAT (2ZZ only)</name>
+  <description>LP filtered IAT reading for 2ZZ cars</description>
+  <mode>22</mode>
+  <pid>225</pid>
+  <size>1</size>  
+  <conversion>iat</conversion>    
+</varobd>
+<varobd>  
+  <name>Engine Load Number</name>
+  <description>Unknown scaleing - value as used in various tables</description>
+  <mode>22</mode>
+  <pid>226</pid>
+  <size>1</size>    
+</varobd>
+<varobd>  
+  <name>Coldstart ECT</name>
+  <description>only updated when engine is off / no LPF</description>
+  <mode>22</mode>
+  <pid>227</pid>
+  <size>1</size>  
+  <conversion>ect</conversion>    
+</varobd>
+<varobd>  
+  <name>AirFlow Accumulator (MAF)</name>
+  <description>Accumulated Airflow while engine is running, reset on engine off</description>
+  <mode>22</mode>
+  <pid>228</pid>
+  <size>4</size>    
+</varobd>
+<varobd>  
+  <name>ECU Shutdown Timer</name>
+  <description>Time in seconds before ECU shuts down</description>
+  <mode>22</mode>
+  <pid>229</pid>
+  <size>4</size>  
+  <conversion>5msectime</conversion>    
+</varobd>
+<varobd>  
+  <name>ECU Runtime</name>
+  <description>ECU Engine Runtime</description>
+  <mode>22</mode>
+  <pid>22D</pid>
+  <size>4</size>  
+  <conversion>100msectime</conversion>    
+</varobd>
+<varobd>  
+  <name>Idle Air Control Learn Value (AC ON)</name>
+  <description>IAC Learn Value when AirCon is ON</description>
+  <mode>22</mode>
+  <pid>23C</pid>
+  <size>4</size>  
+  <conversion>iacval</conversion> 
+</varobd>
+<varobd>  
+  <name>Wheel Speed Left Rear</name>
+  <description>Wheel Speed as sensed by ABS unit</description>
+  <mode>22</mode>
+  <pid>23D</pid>
+  <size>2</size>  
+  <conversion>wheelspeed</conversion> 
+</varobd>
+<varobd>  
+  <name>Wheel Speed Right Rear</name>
+  <description>Wheel Speed as sensed by ABS unit</description>
+  <mode>22</mode>
+  <pid>23E</pid>
+  <size>2</size>  
+  <conversion>wheelspeed</conversion> 
+</varobd>
+<varobd>  
+  <name>Wheel Speed Left Front</name>
+  <description>Wheel Speed as sensed by ABS unit</description>
+  <mode>22</mode>
+  <pid>23F</pid>
+  <size>2</size>  
+  <conversion>wheelspeed</conversion> 
+</varobd>
+<varobd>  
+  <name>Wheel Speed Right Front</name>
+  <description>Wheel Speed as sensed by ABS unit</description>
+  <mode>22</mode>
+  <pid>241</pid>
+  <size>2</size>  
+  <conversion>wheelspeed</conversion> 
+</varobd>
+<varobd>  
+  <name>Traction Control Measured Slipvalue</name>
+  <description>Rear vs Front Axel Slip</description>
+  <mode>22</mode>
+  <pid>242</pid>
+  <size>1</size>    
+</varobd>
+<varobd>  
+  <name>TPS Value</name>
+  <description>current TPS reading</description>
+  <mode>22</mode>
+  <pid>245</pid>
+  <size>2</size>
+  <conversion>tpspercent4</conversion>    
+</varobd>
+<varobd>  
+  <name>Engine Runtime Overall</name>
+  <description>Engine Runtime Overall</description>
+  <mode>22</mode>
+  <pid>338</pid>
+  <size>4</size>  
+  <conversion>100msectime</conversion>     
+</varobd>
+<!-- ================================================================ -->
+<!--                      CAN 0x80 Datalogger                         -->
+<!--  A131E0022/2009 - starts at 0x7D0E0                              -->
+<!-- ================================================================ -->
+<var80>
+  <name>BoostSensorA_calc</name>  
+  <size>2</size>
+  <description>Calculated value from Boost Sensor ADC reading val = (ADC_BoostSensorA * 478) / 1024 + 700</description>
+</var80>
+<var80>
+  <name>3FD81A</name>  
+  <size>2</size>
+  <description>UNKNOWN - is 0 when engine is stopped</description>
+</var80>
+<var80>
+  <name>3FD8FE</name>  
+  <size>2</size>
+  <description>UNKOWN - LoadCalcTerm_calced_via_TPS_RPM </description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Load_TPS_AUTOLEARN_value_byte_3FD909</name>  
+  <size>1</size>
+  <description>UNKOWN (LoadCalcTerm_calced_via_TPS_RPM *  100)/MAF_mg_PerStroke_unknown</description>
+</var80>
+<var80>
+  <name>TPS_RPM_result_LU</name>  
+  <size>2</size>
+  <description>UNKOWN value = lookup table result x4</description>
+</var80>
+<var80>
+  <name>STFT</name>
+  <description>Short Term Fuel Trim</description>  
+  <conversion>fueltrimcan80</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD972</name>
+  <size>2</size>
+  <description>UNKOWN - Fuel related</description>
+</var80>
+<var80>
+  <name>Flag_dword_3FD81C+2</name>
+  <size>2</size>
+  <description>UNKNOWN - is 0 when engine is stopped</description>
+</var80>
+<var80>
+  <name>TPUA_Ch09_PPWA_LW_sum_accel_decel2+2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Knock_word_3FD5C2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F802E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8030</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8032</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8034</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Missfire_Tbl4_0</name>
+  <size>2</size>
+  <description>4 half-words</description>
+</var80>
+<var80>
+  <name>Missfire_Tbl4_1</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Missfire_Tbl4_2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Missfire_Tbl4_3</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8036</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8038</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F803A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F803C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F803E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8040</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8042</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>table_words_3F8044</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed unknown RPM - M22P04</name>
+  <description>unknown RPM value, also used for Mode 22 / Pid 4</description>
+  <conversion>rpm480k16</conversion>  
+  <size>1</size>
+</var80>
+<var80>
+  <name>Pre CAT Oxygen Sensor Voltage</name>
+  <conversion>adc_voltage5</conversion>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Post CAT Oxygen Sensor Voltage</name>
+  <conversion>adc_voltage5</conversion>
+  <size>2</size>
+</var80>
+<var80>
+  <name>MAF Airflow</name>  
+  <size>2</size>
+  <conversion>maf100</conversion>
+</var80>
+<var80>
+  <name>MAF per Stroke</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>BaroPressure_limit_val</name>
+  <conversion>baro</conversion>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Engine Load Number</name>
+  <description>as used in Mapping tables</description>  
+  <size>1</size>
+  <conversion>load</conversion>
+  <link_name>engineloadnumber</link_name>
+</var80>
+<var80>
+  <name>Absolute Load Calculated</name>
+  <size>2</size>
+  <description>LPed - MAF per stroke</description>  
+  <conversion>load54</conversion>
+</var80>
+<var80>
+  <name>ThrottlePedal_PPS_val_LU</name>
+  <size>2</size>
+  <description>calculated from throttle pedal pos sensors via a lookup table</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>AbsLoad_mg_per_stroke</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Throttle_unk_3FE40C</name>
+  <size>2</size>
+</var80>
+<var80>  
+  <name>Engine RPM</name>  
+  <description>also used for Mode 1 / Pid 0xC</description>
+  <conversion>obdrpm</conversion>
+  <link_name>engine_rpm</link_name>
+  <link_calc>VAR/4</link_calc>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>InjDwellTime_calc+2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TPS_val_x4</name>
+  <link_name>tps_val</link_name>
+  <link_calc>VAR/4</link_calc>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F33</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F35</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F37</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F39</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F3B</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F3D</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F3F</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_tbl8_3F8F41</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>PREOxiheater_countdown_100d_0.5sec_cntr</name>
+  <size>2</size>
+  <description>0.5 sec timeout - related to OxiHeater operation</description>
+</var80>
+<var80>
+  <name>MAF_AirFlow_accu_div_1000</name>
+  <size>2</size>
+  <description>set to 0 when engine is stopped, ramped up by MAF value while engine is running</description>
+</var80>
+<var80>
+  <name>Flag_word_3FD820</name>
+  <size>2</size>
+  <description>0x1 = when Gear not neutral or engine not running</description>
+</var80>
+<var80>
+  <name>3FD7FA</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Target AFR</name>
+  <description>OBD Mode 1 / PID 0x44</description>
+  <conversion>afr100</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD732</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_Mode22_CAM_Angle_unk_3F975E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>CAM_Angle</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_Mode22_CAM_Angle_unk_3FD848</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OxiSensor_PostO2_Voltage_LPF</name>
+  <size>2</size>
+  <description>UNCONFIRMED - OxiSensor Voltage Post Cat and Low Pass Filtered ?</description>
+</var80>
+<var80>
+  <name>MAF AirFlow / via autolearn Catalytic Converter Map</name>
+  <conversion>maf10</conversion>
+  <description>MAF value calculated via an autolearn map</description>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_Mode22_MAFAirflow_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F835E</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>P0420_Related_byte_2F8307</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>P0420_word_3FD9C2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>FuelInjector_Latency_LU</name>
+  <size>2</size>
+  <description>latency in milli seconds</description>
+</var80>
+<var80>
+  <name>TimingAdv_Volts_vs_RPM_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FDCA3</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Counter_word_3FD5E8</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>M22P23A_word_3FD976</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Load_demand_flag</name>
+  <size>1</size>
+  <description>0x0 = more than 5500 RPM / 0x1 = engine not running, or intake air flow faulty or RPM &lt; 5500 = WHEN THROTTLE BLIPS it is 1</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Current Gear</name>
+  <link_name>current_gear</link_name>
+  <description>calculated via Speed vs. RPM</description>  
+  <conversion>gear</conversion>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IDLE_ECT_vs_MAF_Airflow_accu_LU</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IDLE_byte_3FD7B8</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_BaroPressure_LU</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Idle RPM Modifier by Speed</name>
+  <description>Idle RPM adjustment by Speed</description>
+  <conversion>rpm480k16</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_ControlModVoltage_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IDLE_byte_3FD7BC</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Idle Air Control Learn Value (AC OFF)</name>
+  <size>2</size>
+  <conversion>iacval</conversion>  
+  <description>learned MAF value for Idle Air Control with AC OFF</description>
+</var80>
+<var80>
+  <name>Current / Base Idle difference</name>
+  <description>difference between current RPM and target Base Idle RPM</description>
+  <size>2</size>
+  <conversion>rpm_deviation_word</conversion>
+</var80>
+<var80>
+  <name>BaseIdleSpeed_BaroPressure_calc_vs_CoolantTemp_LU_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>M22P233 - IDLE related</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Vehicle Speed</name>
+  <description>same as Mode 1 / Pid 0xD</description>
+  <conversion>kph</conversion>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Wheel Speed Left Front</name>
+  <conversion>wheelspeed</conversion>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Left Rear</name>
+  <conversion>wheelspeed</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Right Front</name>  
+  <conversion>wheelspeed</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>Wheel Speed Right Rear</name>
+  <description>used to calculate vehicle speed</description>
+  <conversion>wheelspeed</conversion> 
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Knockbitmask_byte_3FD991</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_2F8350</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>VolumetricEfficiency_LU_val_mult_21</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>MisfireAbsLoad_vs_RPM_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OxiSensorOverUnderVoltage_Status</name>
+  <size>2</size>
+  <description>0x40 = over X_P0134_ADC_OxySensor1_Max_Voltage, 0x80 = below X_P0134_ADC_OxySensor1_Min_Voltage</description>
+</var80>
+<var80>
+  <name>Pre CAT O2 Sensor Heater current</name>
+  <description>ADC Channel 0x4E88 calculated value</description>
+  <conversion>o2amps</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>Post CAT O2 Sensor Heater current</name>
+  <description>ADC Channel 0x4E8C calculated value</description>
+  <conversion>o2amps</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_4tbl_word_2F814A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_4tbl_word_2F814C</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_4tbl_word_2F814E</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>unkn_4tbl_word_2F8150</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Unknown_BaseIdleSpeed_RPM_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Cur_MovingIDLESpeedAdj_RPM_val</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdv_off_3FD6EC</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdj_Idle_LU</name>
+  <calc>VAR</calc>
+  <cast>signed</cast>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_vs_IntakeAirTemp_calc_LU_0</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_IntakeAirTemp_calc_LU</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_unk_3F81A2</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Current TC Slipvalue</name>
+  <size>1</size>
+  <description>(Slipval in %) = (WSSMaxRear * 100) / WSSMaxFront - 100</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>X_revlimit_unknown_byte_3FD75A</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>IdleError_LU0_OBD_M22_P032_val</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FDCF0</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FDCF2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FDCEE</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FDCFA</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FDCFB</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FDCFC</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>FuelInjector_impulse_by_ect+2</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FD938</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>OBD_M1_P2E_CommandedEvapPurge_Byte</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD932</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>ADC_EvapPressureSens_Chan_4A8C_calced</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F8354</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_2F8352</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Target Idle Speed</name>
+  <description>Idle Speed that the ECU tries to achieve</description>
+  <conversion>idlerpm</conversion>
+  <size>2</size>
+</var80>
+<var80>
+  <name>3FD756</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_RPM_vs_EngineLoad1_LU_copy</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_unk_3FD6E8</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>TimingAdv_vs_EngineCoolantTemp_LU</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F8259</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F825A</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F825B</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F825C</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign4</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign1</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign2</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_Ign3</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>TimingAdvance_TC</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_Slip_vs_FuelCut_0_100</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>IAT (Coldstart value)</name>
+  <description>Intake Air Temp via MAF - sampled when Engine is off - unfiltered</description>
+  <conversion>iat</conversion>  
+  <size>1</size>  
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>ECT (Coldstart value)</name>
+  <description>Engine Coolant Temperature - sampled when Engine is off - unfiltered</description>
+  <conversion>ect</conversion>  
+  <size>1</size>  
+</var80>
+<var80>
+  <name>word_3FDC66</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_FuelCut_0_100</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TC_state_flag</name>
+  <size>1</size>
+  <description>
+= 0x88 = LTC ON
+= 0x08 = LTC OFF
+= +0x10 = BUTTON PRESSED
+(when LTC ON) and know fully CW (LTC OFF)
+= 0xA0</description>
+</var80>
+<var80>
+  <name>Engine Shutdown Timer</name>
+  <size>2</size>
+  <conversion>5msectime</conversion> 
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>LUTResult_1D_TractionControl</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD93A</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>ECU / Control Module Voltage</name>
+  <description>ECU Voltage</description>
+  <conversion>adc_voltage18</conversion>    
+  <size>2</size>
+</var80>
+<var80>
+  <name>ECU Run Time</name>
+  <description>Time since last ignition ON</description>    
+  <conversion>100msectime</conversion>    
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_ACCompressorRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Barometric Pressure</name>
+  <description>Via ECU builtin sensor. Also displayed in Mode 1/Pid 33.</description>
+  <conversion>baro</conversion>  
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FDCA8</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>word_3FDCA6</name>
+  <size>2</size>
+</var80>
+<var80>
+  <name>Fastest_StandingStart_to_100KPH</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FanSlowRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FanFastRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Mode 3 Troublecodes</name>
+  <description>cycles through all active Mode 3 troublecodes ?</description>
+  <conversion>pcode</conversion>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Flag_TOOTH_UB_zero</name>  
+  <description>flag = 1 if upper byte of tooth counter is zero</description>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_3FD930</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>FuelEvap_related_byte_3FD5CC</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TPMS_flags_2</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TPMS_flags_3</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TPMS_flags_4</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>TPMS_flags_5</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1" skip_before="2009-08-01">
+  <description>THIS UNUSED SPACER IS ONLY USED FOR OLDER CAN FIRMWARES PRE 2009-08-01</description>
+  <size>1</size>
+</var80>
+<var80>
+  <name>word_2F8152</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3F81B1</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>LTFT</name>
+  <description>Long Term Fuel Trim</description>  
+  <conversion>fueltrimcan80</conversion>  
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>InjectorPulseTime_by_IntakeAirTemp_LU</name>  
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>InjectorPulseTime_by_IntakeAirTemp_LU</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>MPWMStatus_byte_3FD887</name>
+  <size>1</size>
+  <description>0 or 1 depending on unknown PWM input</description>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Maximum Vehicle Speed encountered</name>
+  <size>1</size>
+  <conversion>kph</conversion>
+</var80>
+<var80>
+  <name>Maximum Engine RPM encountered</name>
+  <size>2</size>
+  <conversion>rpm</conversion>
+</var80>
+<var80>
+  <name>word_3FDC6A</name>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>OBD_M1_P1_D_Byte</name>
+  <size>1</size>
+</var80>
+<var80>
+  <name>Mode 7 Troublecodes</name>
+  <description>cycles through all pending Mode 7 troublecodes ?</description>
+  <conversion>pcode</conversion>
+  <size>2</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>byte_3FD93C</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>PIN_FuelPumpRelay_flag</name>
+  <size>1</size>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Intake Air Temp MAF (filtered)</name>
+  <description>Intake Air Temp via MAF (LPF)</description>
+  <conversion>iat</conversion>      
+  <size>1</size>
+  <link_name>iat</link_name>  
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Intake Air Temp 2ZZ (filtered)</name>
+  <description>Intake Air Temp 2ZZ (LPF)</description>  
+  <conversion>iat</conversion>
+  <size>1</size>
+  <link_name>iat2zz</link_name>
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>Engine Coolant Temp (filtered)</name>
+  <description>Engine Coolant Temperature (LPF)</description>
+  <unit>C</unit>    
+  <conversion>ect</conversion>  
+  <size>1</size>
+  <link_name>ect</link_name>  
+</var80>
+<var80 ignore="1">
+  <size>1</size>
+</var80>
+<var80>
+  <name>VVL Cam High/Low Flag</name>
+  <description>1=High CAM, 0= Low CAM</description>
+  <unit></unit>
+  <size>1</size>
+</var80>
+</datalogger>
+<!-- ================================================================ -->
+<!--                       SCALAR DEFINTIONS                          -->
+<!-- ================================================================ -->
+<scalars>
+  <group name="Fan Control">
+    <scalar>
+      <name>Engine Running - Fan LOW ON</name>
+      <addr>65</addr>
+      <conversion>ect</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Running - Fan LOW OFF</name>
+      <addr>66</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Stopped - unknown ON</name>
+      <addr>67</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Stopped - unknown OFF</name>
+      <addr>68</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Running - Fan HIGH ON</name>
+      <addr>69</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Running - Fan HIGH OFF</name>
+      <addr>6A</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>unknown - unknown ON</name>
+      <addr>AD</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>unknown - unknown OFF</name>
+      <addr>AE</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>FAN Cutout Speed Limit</name>
+      <addr>6B</addr>
+      <unit>kph</unit>      
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="Recirculation Pump/Fan Control">
+    <scalar>
+      <name>Engine Stopped - FAN/Pump ON</name>
+      <addr>79</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Stopped - FAN/Pump OFF</name>
+      <addr>7A</addr>
+      <conversion>ect</conversion>
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="Traction Control">
+    <scalar>
+      <name>X_TC_FeatureEnabledFlag</name>  
+      <addr>C6</addr>
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="Idle RPM Control">
+    <scalar>
+      <name>AC ON Idle RPM increase</name>
+      <addr>1D4</addr>
+      <unit>RPM</unit>
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="VSV Airbox">
+    <scalar>
+      <name>Flap closed &lt;</name>
+      <addr>206</addr>
+      <unit>RPM</unit>
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Flap open &gt;</name>
+      <addr>208</addr>
+      <unit>RPM</unit>
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="Wheels/Tires">
+    <scalar>
+      <name>Rear Tire Circumreference</name>
+      <addr>48</addr>
+      <unit>mm</unit>
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Front Tire Circumreference</name>
+      <addr>C4</addr>
+      <unit>mm</unit>
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="Instrument Cluster">
+    <scalar>
+      <name>Temp Warning Blink &gt;</name>
+      <addr>2C14</addr>
+      <conversion>ect</conversion>     
+      <unit>C</unit>
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="Limp Mode">
+    <scalar>
+      <name>RPM reduced by</name>
+      <addr>2C44</addr>
+      <unit>RPM</unit>
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="OBD Subsystem">
+    <scalar>
+      <name>OBD Warm Up Counter Min Temp. &gt;</name>
+      <addr>2C01</addr>
+      <conversion>ect</conversion>         
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>OBD Warm Up Counter Temp. Difference</name>
+      <addr>2C00</addr>
+      <conversion>ect</conversion>         
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="Short Term Fuel Trims - Closed Loop">
+     <scalar>
+      <name>Oxygen Sensor Pre Cat Voltage (lean detection)</name>
+      <addr>1FC</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Oxygen Sensor Pre Cat Voltage (rich detection)</name>
+      <addr>1FA</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+     <scalar>
+      <name>Unknown RPM</name>
+      <addr>86</addr>
+      <conversion>rpm480k16</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>STFT min/max Limit</name>
+      <addr>14E</addr>
+      <conversion>fueltrim</conversion>            
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="Closed Loop Engine Control">
+    <scalar>
+      <name>Air Intake Temp for Closed Loop &gt;</name>
+      <addr>70</addr>
+      <conversion>ect</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>AFR for Closed Loop</name>
+      <addr>148</addr>
+      <conversion>afr100</conversion>      
+      <size>2</size>
+    </scalar>  
+  </group>
+  <group name="P0011 - Camshaft Position - Timing Over-Advanced or System Performance">
+    <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2C84</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Runtime &gt;</name>
+      <addr>2C86</addr>
+      <conversion>5msectime</conversion>           
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>CAM Angle &gt;</name>
+      <addr>2C5C</addr>
+      <unit>Deg</unit>
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0012 - Camshaft Position - Timing Over-Retarted">
+    <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2C84</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine Runtime &gt;</name>
+      <addr>2C86</addr>
+      <conversion>5msectime</conversion>           
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>CAM Angle &lt;</name>
+      <addr>2C5C</addr>
+      <size>2</size>
+    </scalar>
+  </group>  
+  <group name="P0101 - Mass or Volume Air Flow Circuit Range/Performance">       
+   <scalar>
+      <name>Engine RPM &gt;</name>
+      <addr>2CAA</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>     
+    <scalar>
+      <name>Engine RPM &lt;</name>
+      <addr>2CAB</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>  
+  </group>
+  <group name="P0102 - Mass or Volume Air Flow Circuit Low Input">   
+     <scalar>
+      <name>MAF Sensor Voltage &lt;</name>
+      <addr>2C18</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0103 - Mass or Volume Air Flow Circuit High Input">   
+     <scalar>
+      <name>MAF Sensor Voltage &gt;</name>
+      <addr>2C16</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0106 - Manifold Absolute Pressure/Barometric Pressure Circuit Range/Performance">       
+    <scalar>
+      <name>TPS &gt;</name>
+      <addr>2D17</addr>
+      <conversion>throttlepos</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Engine RPM &gt;</name>
+      <addr>2D15</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>     
+    <scalar>
+      <name>Engine RPM &lt;</name>
+      <addr>2D16</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>  
+  </group>
+  <group name="P0107 - Manifold Absolute Pressure/Barometric Pressure Circuit Low Input">   
+     <scalar>
+      <name>MAP/Baro Sensor Voltage &lt;</name>
+      <addr>2C3E</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0108 - Manifold Absolute Pressure/Barometric Pressure Circuit High Input">   
+     <scalar>
+      <name>MAP/Baro Sensor Voltage &gt;</name>
+      <addr>2C3C</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0111 - Intake Air Temperature Sensor 1 Circuit Range/Performance">   
+    <scalar>
+      <name>Engine Coolant Temp &lt;</name>
+      <addr>2D1E</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar> 
+    <scalar>
+      <name>Engine Runtime &lt;</name>
+      <addr>2D1C</addr>
+      <conversion>5msectime</conversion>            
+      <size>2</size>
+    </scalar>   
+  </group>
+  <group name="P0112 - Intake Air Temperature Sensor 1 Circuit Low">   
+     <scalar>
+      <name>IAT Sensor Voltage &lt;</name>
+      <addr>2C2C</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0113 - Intake Air Temperature Sensor 1 Circuit High">   
+     <scalar>
+      <name>IAT Sensor Voltage &gt;</name>
+      <addr>2C2A</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0116 - Engine Coolant Temperature Circuit Range/Performance">       
+    <scalar>
+      <name>Engine Runtime &gt;</name>
+      <addr>2D24</addr>
+      <unit>s</unit>
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Engine Coolant Temp &lt;</name>
+      <addr>2CCF</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="P0117 - Engine Coolant Temperature Circuit Low">       
+    <scalar>
+      <name>Sensor Voltage &lt;</name>
+      <addr>2C42</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0118 - Engine Coolant Temperature Circuit High">       
+    <scalar>
+      <name>Sensor Voltage &gt;</name>
+      <addr>2C40</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+   <group name="P0128 - Coolant Thermostat (Coolant Temperature Below Thermostat Regulating Temperature)">       
+     <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2D5D</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar> 
+    <scalar>
+      <name>Engine Coolant Temp (unknown) &lt;</name>
+      <addr>2D5E</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar> 
+    <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2D5F</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar>    
+  </group>
+  <group name="P0131 - O2 Sensor Pre Cat Circuit Low Voltage">       
+    <scalar>
+      <name>O2 Pre Cat Sensor Voltage &lt;</name>
+      <addr>2C22</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0132 - O2 Sensor Pre Cat Circuit High Voltage">       
+    <scalar>
+      <name>O2 Pre Cat Sensor Voltage &gt;</name>
+      <addr>2C24</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0134 - O2 Sensor Pre Cat Circuit No Activity Detected">       
+    <scalar>
+      <name>Engine Runtime &gt;</name>
+      <addr>2D0C</addr>
+      <conversion>5msectime</conversion>            
+      <size>2</size>
+    </scalar> 
+    <scalar>
+      <name>O2 Pre Cat Sensor Voltage &lt;</name>
+      <addr>2D0A</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>O2 Pre Cat Sensor Voltage &gt;</name>
+      <addr>2D08</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0137 - O2 Sensor Post Cat Circuit Low Voltage">       
+    <scalar>
+      <name>O2 Post Cat Sensor Voltage &lt;</name>
+      <addr>2C26</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0138 - O2 Sensor Post Cat Circuit High Voltage">       
+    <scalar>
+      <name>O2 Post Cat Sensor Voltage &gt;</name>
+      <addr>2C28</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0171 - System Too Lean">       
+    <scalar>
+      <name>MAF &lt;</name>
+      <addr>1DA</addr>
+      <conversion>maf100</conversion>      
+      <size>2</size>
+    </scalar>    
+    <scalar>
+      <name>LTFT &lt;</name>
+      <addr>2C5E</addr>
+      <conversion>fueltrim_neg</conversion>      
+      <size>2</size>
+    </scalar>   
+  </group>
+  <group name="P0172 - System Too Rich">       
+    <scalar>
+      <name>MAF &lt;</name>
+      <addr>1DA</addr>
+      <conversion>maf100</conversion>      
+      <size>2</size>
+    </scalar>    
+    <scalar>
+      <name>LTFT &gt;</name>
+      <addr>2C60</addr>
+      <conversion>fueltrim</conversion>      
+      <size>2</size>
+    </scalar>   
+  </group>
+  <group name="P0237 - Turbocharger/Supercharger Boost Sensor 'A' Circuit Low">       
+    <scalar>
+      <name>Sensor Voltage &lt;</name>
+      <addr>2D52</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0238 - Turbocharger/Supercharger Boost Sensor 'A' Circuit High">       
+    <scalar>
+      <name>Sensor Voltage &gt;</name>
+      <addr>2D50</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0300,P0301-P0304 - Misfire Detection">       
+    <scalar>
+      <name>Engine RPM &gt;</name>
+      <addr>2C72</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>  
+    <scalar>
+      <name>Engine RPM &lt;</name>
+      <addr>2C73</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>  
+    <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2C6C</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar> 
+    <scalar>
+      <name>Engine Coolant Temp &lt;</name>
+      <addr>2C6D</addr>
+      <conversion>ect</conversion>           
+      <size>1</size>
+    </scalar> 
+  </group>
+  <group name="P0327 - Knock Sensor 1 Circuit Low">       
+    <scalar>
+      <name>Sensor Voltage &lt;</name>
+      <addr>2D62</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0328 - Knock Sensor 1 Circuit High">       
+    <scalar>
+      <name>Sensor Voltage &gt;</name>
+      <addr>2D60</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0420 - Catalyst System Efficiency Below Threshold">       
+    <scalar>
+      <name>Engine Coolant Temp &gt;</name>
+      <addr>2C30</addr>
+      <conversion>ect</conversion>      
+      <size>1</size>
+    </scalar>     
+    <scalar>
+      <name>MAF Airflow &gt;</name>
+      <addr>2C32</addr>
+      <conversion>maf100</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>MAF Airflow &lt;</name>
+      <addr>2C34</addr>
+      <conversion>maf100</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Vehicle Speed &lt;</name>
+      <addr>2C3A</addr>
+      <conversion>kph</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Vehicle Speed &gt;</name>
+      <addr>2C3B</addr>
+      <conversion>kph</conversion>      
+      <size>1</size>
+    </scalar>    
+    <scalar>
+      <name>Intake Air Temp &gt;</name>
+      <addr>2C31</addr>
+      <conversion>iat</conversion>      
+      <size>1</size>
+    </scalar>  
+    <scalar>
+      <name>Barometric Pressure &gt;</name>
+      <addr>2C2E</addr>
+      <conversion>baro</conversion>      
+      <size>2</size>
+    </scalar>  
+  </group>
+  <group name="P0452 - Evaporative Emission System Pressure Sensor/Switch Low">       
+    <scalar>
+      <name>Sensor Voltage &lt;</name>
+      <addr>2D22</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0453 - Evaporative Emission System Pressure Sensor/Switch High">       
+    <scalar>
+      <name>Sensor Voltage &gt;</name>
+      <addr>2D20</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+   <group name="P0462 - Fuel Level Sensor “A” Circuit Low">       
+    <scalar>
+      <name>Sensor Voltage &lt;</name>
+      <addr>2D28</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0463 - Fuel Level Sensor “A” Circuit High">       
+    <scalar>
+      <name>Sensor Voltage &gt;</name>
+      <addr>2D26</addr>
+      <conversion>adc_voltage5</conversion>      
+      <size>2</size>
+    </scalar>
+  </group>
+  <group name="P0500 - Vehicle Speed Sensor A">
+    <scalar>
+      <name>Speed &lt;</name>
+      <addr>2C78</addr>
+      <unit>kph</unit>
+      <size>1</size>
+    </scalar>    
+    <scalar>
+      <name>Minimum RPM &gt;</name>
+      <addr>2C7B</addr>
+      <conversion>rpm480k16</conversion>        
+      <size>1</size>
+    </scalar>      
+    <scalar>
+      <name>Maximum RPM &lt;</name>
+      <conversion>rpm480k16</conversion>        
+      <addr>2CD6</addr>
+      <size>1</size>
+    </scalar>     
+    <scalar>
+      <name>Barometric Pressure &gt;</name>
+      <addr>2D06</addr>
+      <conversion>baro</conversion>      
+      <size>2</size>
+    </scalar>     
+  </group>
+  <group name="P0506 - Idle Air Control System RPM Lower Than Expected">
+    <scalar>
+      <name>Voltage &lt;</name>
+      <addr>2C7E</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Voltage &gt;</name>
+      <addr>2C7C</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>RPM Drop &gt;</name>
+      <addr>2CA4</addr>
+      <conversion>rpm_deviation2</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Upper Idle Air Learn Limit</name>
+      <addr>2C81</addr>
+      <conversion>maf10</conversion>      
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="P0507 - Idle Air Control System RPM Higher Than Expected">
+    <scalar>
+      <name>Voltage &lt;</name>
+      <addr>2C7E</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Voltage &gt;</name>
+      <addr>2C7C</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>RPM Rise &gt;</name>
+      <addr>2CA3</addr>
+      <conversion>rpm_deviation2</conversion>      
+      <size>1</size>
+    </scalar>
+    <scalar>
+      <name>Lower Idle Air Learn Limit</name>
+      <addr>2C80</addr>
+      <conversion>maf10</conversion>      
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="P0562 - System Voltage Low">
+    <scalar>
+      <name>Voltage &lt;</name>
+      <addr>2C4A</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+    <scalar>
+      <name>Threshold Counter &gt;</name>
+      <addr>2C4C</addr>
+      <conversion>100msectime</conversion>            
+      <size>1</size>
+    </scalar>
+  </group>
+  <group name="P0563 - System Voltage High">
+    <scalar>
+      <name>Voltage &gt;</name>
+      <addr>2C48</addr>
+      <conversion>adc_voltage18</conversion>      
+      <size>2</size>
+    </scalar>
+      <scalar>
+      <name>Threshold Counter &gt;</name>
+      <addr>2C4D</addr>
+      <conversion>100msectime</conversion>      
+      <size>1</size>
+    </scalar>
+  </group>
+</scalars>
+<!-- ================================================================ -->
+<!--                       ECU MAPS                                   -->
+<!-- ================================================================ -->
+<maps>
+<!-- ================================================================ -->
+<!--                       1D  MAPS                                   -->
+<!-- ================================================================ -->
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_ADC_Calc_sub_329F8 (0x032A24), MAIN_TPU3_TPU_RPM_Calc_sub_37FEC (0x381ec)</xref_result>
+<lut_r>242</lut_r>
+<lut_r_name>LUT_R_1D_ADC_EngineCoolantTemp_0.625</lut_r_name>
+<lut_r_conversion>ect</lut_r_conversion>
+<input_a>3fd65c</input_a>
+<input_a_name>Engine Coolant Temp Sensor Voltage</input_a_name>
+<input_a_maxval>3FF</input_a_maxval>
+<input_a_link_name>adc_ect_voltage</input_a_link_name>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<output_name>Engine Coolant Temp</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_ADC_Calc_sub_329F8 (0x32a54), MAIN_TPU3_TPU_RPM_Calc_sub_37FEC (0x381c0)</xref_result>
+<lut_r>220</lut_r>
+<lut_r_name>LUT_R_1D_ADC_IntakeAirTemp_0.625</lut_r_name>
+<lut_r_conversion>iat</lut_r_conversion>
+<input_a>3fd660</input_a>
+<input_a_name>Intake Air Temp Sensor Voltage</input_a_name>
+<input_a_link_name>adc_iat_voltage</input_a_link_name>
+<input_a_maxval>3FF</input_a_maxval>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<output_name>Intake Air Temp</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_ADC_Calc_sub_329F8 (0x32a84)</xref_result>
+<lut_r>264</lut_r>
+<lut_r_name>x</lut_r_name>
+<lut_r_conversion>iat</lut_r_conversion>
+<input_a>3fd682</input_a>
+<input_a_name>Intake Air Temp Sensor (2ZZ)</input_a_name>
+<input_a_link_name>adc_iat2zz_voltage</input_a_link_name>
+<input_a_maxval>3FF</input_a_maxval>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<output_name>Intake Air Temp (2ZZ)</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>1</shift>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_ADC_Calc_sub_329F8 (0x32e00)</xref_result>
+<lut_r>412</lut_r>
+<lut_r_name>LUT_R_1D_ADC_FuelLevel</lut_r_name>
+<lut_r_conversion>fuellevel</lut_r_conversion>
+<input_a>3fd67A</input_a>
+<input_a_name>Fuel Level Sensor Voltage</input_a_name>
+<input_a_link_name>adc_fuellevel_voltage</input_a_link_name>
+<input_a_maxval>3FF</input_a_maxval>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<output_name>Fuel Level</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>4</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_TPU3_TPU_RPM_Calc_sub_37FEC (0x381ec)</xref_result>
+<lut_r>3C4E</lut_r>
+<lut_r_name>LUT_R_1D_EngineTemp_not_running</lut_r_name>
+<lut_r_calc>mafaccumulated</lut_r_calc>
+<input_a>3fd7ed</input_a>
+<lut_a_conversion>ect</lut_a_conversion>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_maxval>FF</input_a_maxval>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>DTC Thermostat Efficiency P0128 / MAF accuumulated threshold (since last coldstart)</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>1</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x39428)</xref_result>
+<lut_r>338</lut_r>
+<lut_r_name>LUT_R_1D_unk_3F9BEC</lut_r_name>
+<input_a>3fd7e</input_a>
+<input_a_name>Unknown Counter</input_a_name>
+<input_a_maxval>7FF</input_a_maxval>
+<input_a_unit>??</input_a_unit>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>4</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>MAIN_OpenClosedLoop (0x43264)</xref_result>
+<lut_r>41C</lut_r>
+<lut_r_name>LUT_R_1D_EngineTemp_vs_EngineRunTime</lut_r_name>
+<input_a>3fd7ed</input_a>
+<lut_a_conversion>ect</lut_a_conversion>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_maxval>FF</input_a_maxval>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>Min. Engine Runtime for Closed Loop Operation</output_name>
+<output_unit>s</output_unit>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>OBD_DTC_Missfires_sub_53620 (0x53784)</xref_result>
+<lut_r>3642</lut_r>
+<lut_r_name>LUT_R_1D_RPM_480k_16_0</lut_r_name>
+<input_a>3fd7ec</input_a>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_a_maxval>FF</input_a_maxval>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>OBD_DTC_Missfires_sub_53620 (0x53830)</xref_result>
+<lut_r>364C</lut_r>
+<lut_r_name>LUT_R_1D_EngineLoad_vs_RPM_480k_16</lut_r_name>
+<input_a>3fd7ec</input_a>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_a_maxval>FF</input_a_maxval>
+<output_name>unknown OBD Misfire - detection</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<shift>3</shift>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Interpolate_HalfWord</function>
+<xref_result>OBD_DTC_Missfires_sub_53620 (0x53704)</xref_result>
+<lut_r>3C60</lut_r>
+<lut_r_name>LUT_R_1D_RPM_480k_16</lut_r_name>
+<input_a>3fd7ec</input_a>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_a_maxval>FF</input_a_maxval>
+<output_name>unknown OBD Misfire - RPM ?</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>CAN_0x400_Send_to_Cluster_sub_3B6B0 (0x3b7d0)</xref_result>
+<lut_r>1154</lut_r>
+<lut_r_name>LUT_R_1D_RPM_beforeShiftLight</lut_r_name>
+<lut_r_conversion>rpmx8</lut_r_conversion>
+<input_a>3fd87e</input_a>
+<input_a_name>Gear</input_a_name>
+<input_a_link_name>current_gear</input_a_link_name>
+<input_a_unit>Number</input_a_unit>
+<output_name>Shiftlight - RPM before Revlimiter</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>OBD_DTC_Catalytic_sub_485D8 (0x4865c)</xref_result>
+<lut_r>3B56</lut_r>
+<lut_r_name>LUT_R_1D_MAF_0</lut_r_name>
+<input_a>3fd8dc</input_a>
+<input_a_name>Mass Air Flow</input_a_name>
+<input_a_unit>g/sec</input_a_unit>
+<output_name>unknown OBD Mode 22 Pid 0x20B</output_name>
+</map>
+<!-- DECRAM MAPS ARE NOT SUPPORTED ATM !
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>OBD_DTC_Catalytic_sub_485D8 (0x486a8)</xref_result>
+<lut_r>FFFFFFFFFFEFEA23</lut_r>
+<lut_r_name>LUT_R_1D_MAF</lut_r_name>
+<input_a>3fd8dc</input_a>
+<input_a_name>OBD_M1_P10_MAFAirFlowRate_Short</input_a_name>
+<output_name>DECRAM MAP - unsupported for now - unknown</output_name>
+</map>
+<map>
+<dimension>1</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_1D_Fixed_Byte</function>
+<xref_result>OBD_DTC_Catalytic_sub_485D8 (0x486f4)</xref_result>
+<lut_r>FFFFFFFFFFEFEA33</lut_r>
+<lut_r_name>LUT_R_1D_MAF_1</lut_r_name>
+<input_a>3fd8dc</input_a>
+<input_a_name>OBD_M1_P10_MAFAirFlowRate_Short</input_a_name>
+<output_name>DECRAM MAP - unsupported for now - unknown</output_name>
+</map>
+-->
+<!-- ================================================================ -->
+<!--                       2D  MAPS                                   -->
+<!-- ================================================================ -->
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_ADC_Calc_sub_329F8 (0x32d88), MAIN_ADC_Calc_sub_329F8 (0x32dc4)</xref_result>
+<lut_a>286</lut_a>
+<lut_a_name>LUT_A_2D_ADC_Oxygen_Sensor</lut_a_name>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<lut_r>296</lut_r>
+<lut_r_name>LUT_R_2D_ADC_Oxygen_Sensor</lut_r_name>
+<lut_r_conversion>lambda100</lut_r_conversion>
+<input_a>3fd670</input_a>
+<input_a_name>Oxygen Sensor Voltage</input_a_name>
+<output_name>Lambda value</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x338e8)</xref_result>
+<lut_a>2C8</lut_a>
+<lut_a_name>LUT_A_2D_EngineTemp</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>2D0</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9B84</lut_r_name>
+<lut_r_conversion>obdtimingadv</lut_r_conversion>
+<input_a>3fd7ed</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>Timing Advance (ECT)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33924)</xref_result>
+<lut_a>75C</lut_a>
+<lut_a_name>LUT_A_2D_IntakeAirTemp_calc</lut_a_name>
+<lut_a_conversion>iat</lut_a_conversion>
+<lut_r>76C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA020</lut_r_name>
+<lut_r_conversion>obdtimingadv</lut_r_conversion>
+<input_a>3fd663</input_a>
+<input_a_name>Intake Air Temp</input_a_name>
+<input_a_link_name>iat</input_a_link_name>
+<output_name>Timing Advance (IAT)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33968)</xref_result>
+<lut_a>894</lut_a>
+<lut_a_name>LUT_A_2D_EngineCoolantTemp_Fahrenheit_14</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>8A4</lut_r>
+<lut_r_name>LUT_R_2D_TimingAdv_vs_EngineCoolantTemp_Fahrenheit_14</lut_r_name>
+<lut_r_conversion>obdtimingadv</lut_r_conversion>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>Timing Advance (ECT)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x339a4)</xref_result>
+<lut_a>8D4</lut_a>
+<lut_a_name>LUT_A_2D_IntakeAirTemp_calc_0</lut_a_name>
+<lut_a_conversion>iat</lut_a_conversion>
+<lut_r>8E4</lut_r>
+<lut_r_name>LUT_R_2D_TimingAdv_vs_IntakeAirTemp_calc_0</lut_r_name>
+<lut_r_conversion>obdtimingadv</lut_r_conversion>
+<input_a>3fd663</input_a>
+<input_a_name>Intake Air Temp</input_a_name>
+<input_a_link_name>iat</input_a_link_name>
+<output_name>Timing Advance (IAT)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x339e4)</xref_result>
+<lut_a>1F7C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB830</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1F8C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB840</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33a24)</xref_result>
+<lut_a>1F9C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB850</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>1FA4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB858</lut_r_name>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33aa4), MAIN_TIMING_VVL_Calc_sub_33584 (0x33aec), MAIN_TIMING_VVL_Calc_sub_33584 (0x33b30)</xref_result>
+<lut_a>1FEC</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB8A0</lut_a_name>
+<lut_r>1FF4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB8A8</lut_r_name>
+<input_a>3fd578</input_a>
+<input_a_name>unknown</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33c58), MAIN_TIMING_VVL_Calc_sub_33584 (0x33ce4), MAIN_TIMING_VVL_Calc_sub_33584 (0x33d90)</xref_result>
+<lut_a>34A</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9BFE</lut_a_name>
+<lut_a_conversion>idlerpm512</lut_a_conversion>
+<lut_r>35A</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9C0E</lut_r_name>
+<lut_r_conversion>timingadv2</lut_r_conversion>
+<input_a>3fd798</input_a>
+<input_a_name>Idle Error</input_a_name>
+<output_name>Moving Idle Timing Adjust &gt;5 kph</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33c1c), MAIN_TIMING_VVL_Calc_sub_33584 (0x33cac), MAIN_TIMING_VVL_Calc_sub_33584 (0x33d3c)</xref_result>
+<lut_a>8B4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA168</lut_a_name>
+<lut_a_conversion>idlerpm512</lut_a_conversion>
+<lut_r>8C4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA178</lut_r_name>
+<lut_r_conversion>timingadv2</lut_r_conversion>
+<input_a>3fd798</input_a>
+<input_a_name>Idle Error</input_a_name>
+<output_name>Idle Timing Adjust 0-5 kph</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33ec4), MAIN_TIMING_VVL_Calc_sub_33584 (0x33f18), MAIN_TIMING_VVL_Calc_sub_33584 (0x33f74)</xref_result>
+<lut_a>1FAC</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB860</lut_a_name>
+<lut_r>1FBC</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB870</lut_r_name>
+<input_a>3fd7e8</input_a>
+<input_a_name>unk_3FD7E8</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x359f8)</xref_result>
+<lut_a>2A6</lut_a>
+<lut_a_name>LUT_A_2D_FuelInjector_Latency</lut_a_name>
+<lut_a_conversion>adc_voltage4x18</lut_a_conversion>
+<lut_a_precision>1</lut_a_precision>
+<lut_r>2B6</lut_r>
+<lut_r_name>LUT_R_2D_FuelInjector_Latency</lut_r_name>
+<lut_r_conversion>injlatency</lut_r_conversion>
+<input_a>3fd676</input_a>
+<input_a_name>Control Modul Voltage</input_a_name>
+<input_a_unit>V</input_a_unit>
+<output_name>Fuel Injector Latency</output_name>
+<output_unit>us</output_unit>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x35c24)</xref_result>
+<lut_a>14C4</lut_a>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_a_name>LUT_A_2D_EngineTemp_0</lut_a_name>
+<lut_r>14D4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAD88</lut_r_name>
+<input_a>3fd7ed</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x360d0)</xref_result>
+<lut_a>73C</lut_a>
+<lut_a_name>LUT_A_2D_IntakeAirTemp_calc_1</lut_a_name>
+<lut_a_conversion>iat</lut_a_conversion>
+<lut_r>74C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA000</lut_r_name>
+<input_a>3fd663</input_a>
+<input_a_name>Intake Air Temp</input_a_name>
+<input_a_link_name>iat</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x367d8)</xref_result>
+<lut_a>14E4</lut_a>
+<lut_a_name>LUT_A_2D_MovingIDLESpeedAdjustment_kph</lut_a_name>
+<lut_r>14EC</lut_r>
+<lut_r_name>LUT_R_2D_MovingIDLESpeedAdjustment_RPM</lut_r_name>
+<lut_r_conversion>rpmx4</lut_r_conversion>
+<input_a>3fe790</input_a>
+<input_a_name>Vehicle Speed</input_a_name>
+<input_a_unit>kph</input_a_unit>
+<output_name>Moving Idle Speed Adjustment</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x3685c)</xref_result>
+<lut_a>77C</lut_a>
+<lut_a_name>LUT_A_2D_BaseIdeSpeed_CoolantTemp</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>78C</lut_r>
+<lut_r_name>LUT_R_2D_BaseIdleSpeed_RPM_calc</lut_r_name>
+<lut_r_conversion>idlerpm500</lut_r_conversion>
+<input_a>3fd662</input_a>
+<input_a_link_name>ect</input_a_link_name>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<output_name>Base Idle RPM</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x369f8)</xref_result>
+<lut_a>844</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA0F8</lut_a_name>
+<lut_a_conversion>idlerpm500</lut_a_conversion>
+<lut_r>84C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA100</lut_r_name>
+<input_a>3FD796</input_a>
+<input_a_name>Idle Error</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36d20)</xref_result>
+<lut_a>402</lut_a>
+<lut_a_name>LUT_A_2D_BaroPressure</lut_a_name>
+<lut_a_conversion>baro4</lut_a_conversion>
+<lut_r>40A</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9CBE</lut_r_name>
+<lut_r_cast>signed</lut_r_cast>
+<input_a>3FD66A</input_a>
+<input_a_name>Barometric Pressure</input_a_name>
+<output_name>Idle RPM Modifier by Baro Pressure</output_name>
+<output_unit>RPM</output_unit>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36d60)</xref_result>
+<lut_a>14F4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FADA8</lut_a_name>
+<lut_r>14FC</lut_r>
+<lut_r_name>LUT_R_2D_IdleSpeed_SpeedByte</lut_r_name>
+<lut_r_conversion>rpm480k16</lut_r_conversion>
+<input_a>3fe790</input_a>
+<input_a_name>Vehicle Speed</input_a_name>
+<input_a_unit>kph</input_a_unit>
+<output_name>Idle RPM Modifier by Speed</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36da8)</xref_result>
+<lut_a>834</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA0E8</lut_a_name>
+<lut_a_conversion>adc_voltage4x18</lut_a_conversion>
+<lut_r>83C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA0F0</lut_r_name>
+<lut_r_conversion>rpm_deviation</lut_r_conversion>
+<lut_r_cast>signed</lut_r_cast>
+<input_a>3fd676</input_a>
+<input_a_name>Control Module Voltage</input_a_name>
+<output_name>Idle RPM Modifier by ECU Voltage</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36e34)</xref_result>
+<lut_a>1EFC</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB7B0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1F0C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB7C0</lut_r_name>
+<lut_r_conversion>rpm480k16</lut_r_conversion>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<output_name>Idle RPM Modifier by RPM</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36e78), MAIN_IDLE_Speed_sub_367AC (0x36ec8), MAIN_IDLE_Speed_sub_367AC (0x36f1c)</xref_result>
+<lut_a>854</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA108</lut_a_name>
+<lut_a_conversion>idleerror</lut_a_conversion>
+<lut_r>864</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA118</lut_r_name>
+<lut_r_conversion>rpm_deviation</lut_r_conversion>
+<lut_r_cast>signed</lut_r_cast>
+<input_a>3fd7ec</input_a>
+<input_a_name>Idle Error</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36f6c), MAIN_IDLE_Speed_sub_367AC (0x36fc0), MAIN_IDLE_Speed_sub_367AC (0x37014)</xref_result>
+<lut_a>874</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA128</lut_a_name>
+<lut_a_conversion>idleerror</lut_a_conversion>
+<lut_r>884</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA138</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Idle Error</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x371dc)</xref_result>
+<lut_a>1494</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FAD48</lut_a_name>
+<lut_r>149C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAD50</lut_r_name>
+<input_a>3fd5c6</input_a>
+<input_a_name>unk_3FD5C6</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x37244)</xref_result>
+<lut_a>14A4</lut_a>
+<lut_a_name>LUT_A_2D_LoSpeedFanOn_cntr_val</lut_a_name>
+<lut_a_conversion>5msectime</lut_a_conversion>
+<lut_r>14AC</lut_r>
+<lut_r_name>Unknown IDLE Speed/LS FAN Timeout</lut_r_name>
+<input_a_name>Time since LS Fan turned ON</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x372ac)</xref_result>
+<lut_a>14B4</lut_a>
+<lut_a_name>LUT_A_2D_HiSpeedFanOn_cntr_val</lut_a_name>
+<lut_a_conversion>5msectime</lut_a_conversion>
+<lut_r>14BC</lut_r>
+<lut_r_name>Unknown IDLE Speed/HS FAN Timeout</lut_r_name>
+<input_a_name>Time since HS Fan turned ON</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x38f10)</xref_result>
+<lut_a>914</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA1C8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>924</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA1D8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x38f48)</xref_result>
+<lut_a>8F4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA1A8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>904</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA1B8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x38f80)</xref_result>
+<lut_a>934</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA1E8</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>944</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA1F8</lut_r_name>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x38fb8)</xref_result>
+<lut_a>974</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA228</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>984</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA238</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x38ff0)</xref_result>
+<lut_a>954</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA208</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>964</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA218</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x39028)</xref_result>
+<lut_a>994</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA248</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>9A4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA258</lut_r_name>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_OBD_Mode22_sub_38DE4 (0x391e8)</xref_result>
+<lut_a>1554</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FAE08</lut_a_name>
+<lut_r>1558</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAE0C</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>unknown</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TPU3B_Ch07_VVT_Par02_PWMHI_sub_394C8 (0x395cc)</xref_result>
+<lut_a>554</lut_a>
+<lut_a_name>LUT_A_2D_unk_3F9E08</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>564</lut_r>
+<lut_r_name>LUT_R_2D_unk_3F9E18</lut_r_name>
+<lut_r_calc>LUTR/-4</lut_r_calc>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>Intake Cam Temp Retard</output_name>
+<output_unit>Deg</output_unit>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TPU3B_Ch07_VVT_Par02_PWMHI_sub_394C8 (0x39610)</xref_result>
+<lut_a>1FCC</lut_a>
+<lut_a_name>LUT_A_2D_EngineTemp</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_r>1FD4</lut_r>
+<lut_r_name>LUT_R_2D_VVT_MinEngineRunTime_5msec</lut_r_name>
+<lut_r_conversion>vvtruntime</lut_r_conversion>
+<input_a>3fd7ed</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>VVT Minimum Engine Runtime</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3de04)</xref_result>
+<lut_a>1194</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FAA48</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>11A4</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAA58</lut_r_name>
+<lut_r_conversion>throttlepos</lut_r_conversion>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<output_name>TPS - Unknown Threshold</output_name>
+<output_unit>%</output_unit>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3de3c)</xref_result>
+<lut_a>71C</lut_a>
+<lut_a_name>LUT_A_2D_TPS_3F9FD0</lut_a_name>
+<lut_a_conversion>throttlepos</lut_a_conversion>
+<lut_r>72C</lut_r>
+<lut_r_name>LUT_R_2D_TPS_3F9FE0</lut_r_name>
+<lut_r_calc>VAR*4</lut_r_calc>
+<input_a>3fd66c</input_a>
+<input_a_name>TPS</input_a_name>
+<output_name>XXX by TPS (Engine Stopped)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3e35c)</xref_result>
+<lut_a>1164</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FAA18</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1174</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAA28</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3e474)</xref_result>
+<lut_a>FF4</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA8A8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1004</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA8B8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3e4b8)</xref_result>
+<lut_a>1014</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FA8C8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1024</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FA8D8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_MPWMSM_sub_3F204 (0x3f6dc)</xref_result>
+<lut_a>285C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FC110</lut_a_name>
+<lut_r>2864</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FC118</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>unknown</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_4323C (0x434cc)</xref_result>
+<lut_a>1FDC</lut_a>
+<lut_a_name>LUT_A_2D_RPM480k_16</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>1FE4</lut_r>
+<lut_r_name>LUT_R_2D_STFT_by_RPM</lut_r_name>
+<lut_r_calc>LUTR*5</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<output_name>STFT by RPM</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x45198)</xref_result>
+<lut_a>271C</lut_a>
+<lut_a_name>LUT_A_2D_Knock_RPM</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>2724</lut_r>
+<lut_r_name>LUT_R_2D_Knock_Load_by_RPM</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<output_name>Knock unknown Engine Load Number by RPM</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x453d4)</xref_result>
+<lut_a>272C</lut_a>
+<lut_a_name>LUT_A_2D_Knock_RPM_1</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_r>2734</lut_r>
+<lut_r_name>LUT_R_2D_Knock_Load_by_RPM_1</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<output_name>Knock unknown Engine Load Number by RPM</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x457b8)</xref_result>
+<lut_a>270C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FBFC0</lut_a_name>
+<lut_r>2714</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FBFC8</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>Knock related value</input_a_name>
+<output_name>Knock unknown value</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>OBD_DTC_Catalytic_sub_485D8 (0x48608)</xref_result>
+<lut_a>3B46</lut_a>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_a_name>LUT_A_2D_EngineTemp_stopped</lut_a_name>
+<lut_r>3B4E</lut_r>
+<lut_r_name>LUT_R_2D_MAF_accumulated</lut_r_name>
+<lut_r_conversion>mafaccumulated</lut_r_conversion>
+<input_a>3fd7ed</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<output_name>DTC P0420 Threshold - of MAF Airflow Accumulated (since last coldstart)</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MPWMSM_sub_51AA4 (0x52798)</xref_result>
+<lut_a>3B66</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FD41A</lut_a_name>
+<lut_r>3B76</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FD42A</lut_r_name>
+<input_a>3fd5cc</input_a>
+<input_a_name>unk_3FD5CC</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MPWMSM_sub_51AA4 (0x527d0)</xref_result>
+<lut_a>3B86</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FD43A</lut_a_name>
+<lut_r>3B96</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FD44A</lut_r_name>
+<input_a>3fd5cc</input_a>
+<input_a_name>unk_3FD5CC</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>OBD_DTC_CoolantThermostat_sub_5BE48 (0x5be98)</xref_result>
+<lut_a>3C3E</lut_a>
+<lut_a_name>LUT_A_2D_Engineload</lut_a_name>
+<lut_r>3C46</lut_r>
+<lut_r_name>LUT_R_2D_DTC_P0128_multiplicator</lut_r_name>
+<input_a>3fd907</input_a>
+<input_a_name>Engine Load Number</input_a_name>
+<input_a_link_name>engineloadnumber</input_a_link_name>
+<output_name>DTC Thermostat Efficiency P0128 / MAF accumulator multiplier</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MPWMSM_sub_6F460 (0x6f548)</xref_result>
+<lut_a>1F1C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FB7D0</lut_a_name>
+<lut_r>1F24</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FB7D8</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>unknown</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MPWMSM_sub_6F460 (0x6f588)</xref_result>
+<lut_a>1184</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FAA38</lut_a_name>
+<lut_r>118C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FAA40</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>unknown</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_Byte</function>
+<xref_result>MAIN_TC_Control_SPEED_Calc_sub_73288 (0x73e2c)</xref_result>
+<lut_a>131C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FABD0</lut_a_name>
+<lut_r>132C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FABE0</lut_r_name>
+<input_a>3fe7b3</input_a>
+<input_a_name>TC_Slip_vs_FuelCut_0_100</input_a_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>32</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3dc4c), MAIN_LoadCalc_sub_3DC1C (0x3dc84)</xref_result>
+<lut_a>1E7C</lut_a>
+<lut_a_name>LUT_A_2D_ADC_MAF_Chan_val</lut_a_name>
+<lut_a_conversion>adc_voltage5</lut_a_conversion>
+<lut_r>1EBC</lut_r>
+<lut_r_name>LUT_R_2D_MAF_g_per_sec</lut_r_name>
+<lut_r_conversion>maf100</lut_r_conversion>
+<input_a>3fd8a0</input_a>
+<input_a_name>MAF Voltage</input_a_name>
+<input_a_link_name>adc_maf_voltage</input_a_link_name>
+<output_name>MAF Sensor Calibration</output_name>
+<output_unit>g/sec</output_unit>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result>ReadThrottlePedalPosition_sub_6DD84 (0x6debc)</xref_result>
+<lut_a>286C</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FC120</lut_a_name>
+<lut_r>288C</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FC140</lut_r_name>
+<input_a>3fea3e</input_a>
+<input_a_name>unk_3FEA3E</input_a_name>
+<output_name>PPS - unknown</output_name>
+</map>
+<map>
+<dimension>2</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>1</ysize>
+<function>LOOKUP_2D_Interpolate_HalfWord</function>
+<xref_result>MPWMSM_sub_6E8C0 (0x6ec24), MPWMSM_sub_6F460 (0x6fd74)</xref_result>
+<lut_a>28AC</lut_a>
+<lut_a_name>LUT_A_2D_unk_3FC160</lut_a_name>
+<lut_r>28CC</lut_r>
+<lut_r_name>LUT_R_2D_unk_3FC180</lut_r_name>
+<input_a>3fe4a2</input_a>
+<input_a_name>unk_3FE4A2</input_a_name>
+</map>
+<!-- ================================================================ -->
+<!--                       3D  MAPS                                   -->
+<!-- ================================================================ -->
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x335c8)</xref_result>
+<lut_a>15AC</lut_a>
+<lut_a_name>LUT_A_3D_VoltsRPM_RPM</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>15B4</lut_b>
+<lut_b_name>LUT_B_3D_VoltsRPM_Volts</lut_b_name>
+<lut_b_conversion>adc_voltage4x18</lut_b_conversion>
+<lut_r>15BC</lut_r>
+<lut_r_name>LUT_R_3D_VoltsRPM</lut_r_name>
+<lut_r_conversion>ignspark64</lut_r_conversion>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd676</input_b>
+<input_b_name>Control Module Voltage</input_b_name>
+<output_name>Ignition Spark Time (V vs RPM)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x33688)</xref_result>
+<lut_a>A24</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA2D8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>A2C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA2E0</lut_b_name>
+<lut_r>A34</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA2E8</lut_r_name>
+<lut_r_calc>LUTR-40</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x336e8)</xref_result>
+<lut_a>133C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FABF0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>1344</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FABF8</lut_b_name>
+<lut_r>134C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FAC00</lut_r_name>
+<lut_r_calc>LUTR-40</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x3374c)</xref_result>
+<lut_a>1A3C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB2F0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>1A5C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB310</lut_b_name>
+<lut_r>1A7C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB330</lut_r_name>
+<lut_r_calc>LUTR-40</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x337b0)</xref_result>
+<lut_a>15FC</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FAEB0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>161C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FAED0</lut_b_name>
+<lut_r>163C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FAEF0</lut_r_name>
+<lut_r_calc>LUTR-40</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x3382c)</xref_result>
+<lut_a>155C</lut_a>
+<lut_a_name>LUT_A_3D_MAF_accumulated</lut_a_name>
+<lut_a_conversion>mafaccumulated_div_8</lut_a_conversion>
+<lut_b>1564</lut_b>
+<lut_b_name>LUT_B_3D_TPS_0</lut_b_name>
+<lut_b_conversion>tpspercentx4</lut_b_conversion>
+<lut_r>156C</lut_r>
+<lut_r_name>LUT_R_3D_TPS_vs_MAF_accum</lut_r_name>
+<input_a>3FD5CA</input_a>
+<input_a_name>MAF accumulated</input_a_name>
+<input_b>3fd66c</input_b>
+<input_b_name>TPS</input_b_name>
+<output_name>Timing Advance - MAF vs TPS (WarmUp)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TIMING_VVL_Calc_sub_33584 (0x338a4)</xref_result>
+<lut_a>36A</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9C1E</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>372</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9C26</lut_b_name>
+<lut_r>382</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9C36</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fe40c</input_b>
+<input_b_name>Slipval_unk</input_b_name>
+<output_name>Timing Adv (Slipval?)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x35a9c)</xref_result>
+<lut_a>1F2C</lut_a>
+<lut_a_name>LUT_A_3D_Engine_Temp</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_b>1F34</lut_b>
+<lut_b_conversion>10usectime</lut_b_conversion>
+<lut_b_name>LUT_B_3D_Limiter_Time_100msec</lut_b_name>
+<lut_r>1F3C</lut_r>
+<lut_r_name>LUT_R_3D_Revlimit_RPM</lut_r_name>
+<lut_r_conversion>rpmrevlimit</lut_r_conversion>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<input_b>3f90a8</input_b>
+<input_b_name>Limiter Time</input_b_name>
+<input_b_unit>ms</input_b_unit>
+<output_name>Revlimit by Engine Coolant Temp</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x35bc0)</xref_result>
+<lut_a>1504</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FADB8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>150C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FADC0</lut_b_name>
+<lut_r>1514</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FADC8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x35cd0)</xref_result>
+<lut_a>3A26</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FD2DA</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>3A36</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FD2EA</lut_b_name>
+<lut_r>3A46</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FD2FA</lut_r_name>
+<lut_r_conversion>fuelafr</lut_r_conversion>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Fuel AFR Target (closed loop)</output_name>
+<output_unit>Ratio</output_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>32</xsize>
+<ysize>32</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x35ec8)</xref_result>
+<lut_a>BB4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA468</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>BD4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA488</lut_b_name>
+<lut_r>BF4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA4A8</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Volumetric Efficiency ???</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x36088)</xref_result>
+<lut_a>11B4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FAA68</lut_a_name>
+<lut_b>11C4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FAA78</lut_b_name>
+<lut_b_conversion>ect</lut_b_conversion>
+<lut_r>11D4</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FAA88</lut_r_name>
+<input_a>3fd907</input_a>
+<input_a_name>Engine Load Number</input_a_name>
+<input_a_link_name>engineloadnumber</input_a_link_name>
+<input_b>3fd662</input_b>
+<input_b_name>Engine Coolant Temp</input_b_name>
+<input_b_link_name>ect</input_b_link_name>
+<input_b_unit>C</input_b_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>24</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_FUEL_Injectors_sub_359C4 (0x36130), MAIN_FUEL_Injectors_sub_359C4 (0x36180)</xref_result>
+<lut_a>574</lut_a>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_a_name>LUT_A_3D_unk_3F9E28</lut_a_name>
+<lut_b>584</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9E38</lut_b_name>
+<lut_r>59C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9E50</lut_r_name>
+<input_a>3fd7ed</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<input_b>3fd5ca</input_b>
+<input_b_name>byte_3FD5CA</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36a5c), MAIN_IDLE_Speed_sub_367AC (0x36ab0)</xref_result>
+<lut_a>79C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA050</lut_a_name>
+<lut_a_conversion>ect</lut_a_conversion>
+<lut_b>7AC</lut_b>
+<lut_b_name>LUT_B_3D__MAF_AirFlow_accu_div_4000</lut_b_name>
+<lut_r>7B4</lut_r>
+<lut_r_name>Unknown - MAF Airflow since coldstart vs ECT - LUT_R_3D_unk_3FA068</lut_r_name>
+<input_a>3fd662</input_a>
+<input_a_name>Engine Coolant Temp</input_a_name>
+<input_a_link_name>ect</input_a_link_name>
+<input_b>ffffffff</input_b>
+<input_b_name>MAF Airflow since coldstart</input_b_name>
+<input_b_conversion>mafaccumulated_div_4000</input_b_conversion>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36cb4)</xref_result>
+<lut_a>9D4</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA288</lut_a_name>
+<lut_b>9DC</lut_b>
+<lut_b_name>LUT_B_3D_IdleSpeed_BaroPressureDifferenceunk_3FA290</lut_b_name>
+<lut_r>9E4</lut_r>
+<lut_r_name>LUT_R_3D_IdleSpeed_unk_3FA298</lut_r_name>
+<input_a>3fd7a7</input_a>
+<input_a_name>unk_3FD7A7</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name>unknown</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_IDLE_Speed_sub_367AC (0x36df0)</xref_result>
+<lut_a>138C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FAC40</lut_a_name>
+<lut_a_conversion>baro4</lut_a_conversion>
+<lut_b>1390</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FAC44</lut_b_name>
+<lut_b_conversion>ect</lut_b_conversion>
+<lut_r>13A0</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FAC54</lut_r_name>
+<input_a>3FD66A</input_a>
+<input_a_name>Barometric Pressure</input_a_name>
+<input_b>3fd662</input_b>
+<input_b_name>Engine Coolant Temp</input_b_name>
+<input_b_link_name>ect</input_b_link_name>
+<output_name>Idle Speed</output_name>
+<output_unit>?</output_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TPU3B_Ch07_VVT_Par02_PWMHI_sub_394C8 (0x39540)</xref_result>
+<lut_a>1034</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FA8E8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>1044</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FA8F8</lut_b_name>
+<lut_r>1054</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FA908</lut_r_name>
+<lut_r_calc>LUTR/4</lut_r_calc>
+<lut_r_precision>1</lut_r_precision>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Intake Cam Advance (High)</output_name>
+<output_unit>Deg before TDC</output_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TPU3B_Ch07_VVT_Par02_PWMHI_sub_394C8 (0x39590)</xref_result>
+<lut_a>434</lut_a>
+<lut_a_name>LUT_A_3D_unk_3F9CE8</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>444</lut_b>
+<lut_b_name>LUT_B_3D_unk_3F9CF8</lut_b_name>
+<lut_r>454</lut_r>
+<lut_r_name>LUT_R_3D_unk_3F9D08</lut_r_name>
+<lut_r_calc>LUTR/4</lut_r_calc>
+<lut_r_precision>1</lut_r_precision>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Intake Cam Advance (Low)</output_name>
+<output_unit>Deg before TDC</output_unit>
+</map>
+<!-- DECRAM MAPS ARE NOT SUPPORTED ATM
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3dd74)</xref_result>
+<lut_a>FFFFFFFFFFEFE774</lut_a>
+<lut_a_name>LUT_A_3D_RPM</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>FFFFFFFFFFEFE784</lut_b>
+<lut_b_name>LUT_B_3D_TPS_2F8038</lut_b_name>
+<lut_r>FFFFFFFFFFEFE794</lut_r>
+<lut_r_name>LUT_R_3D_TPSvsRPM</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd66c</input_b>
+<input_b_name>TPS_val</input_b_name>
+</map>
+-->
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_LoadCalc_sub_3DC1C (0x3de7c)</xref_result>
+<lut_a>3906</lut_a>
+<lut_a_name>LUT_A_3D_RPM480k_16</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>3916</lut_b>
+<lut_b_name>LUT_B_3D_TPS</lut_b_name>
+<lut_b_conversion>throttlepos</lut_b_conversion>
+<lut_r>3926</lut_r>
+<lut_r_name>LUT_R_3D_RPM_vs_TPS</lut_r_name>
+<lut_r_calc>VAR*4</lut_r_calc>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd66c</input_b>
+<input_b_name>TPS</input_b_name>
+<output_name>XXX by TPS vs RPM (Engine Running)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_MPWMSM_sub_3F204 (0x3f954)</xref_result>
+<lut_a>273C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FBFF0</lut_a_name>
+<lut_b>274C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FC000</lut_b_name>
+<lut_r>275C</lut_r>
+<lut_r_name>LUT_R_3D_EvapSolenoidPWM</lut_r_name>
+<lut_r_conversion>evapperc</lut_r_conversion>
+<input_a>3fd932</input_a>
+<input_a_name>unk_3FD932</input_a_name>
+<input_b>ffffffff</input_b>
+<input_b_name>unknown</input_b_name>
+<output_name>EVAP Solenoid duty cycle</output_name>
+<output_unit>%</output_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44CD4 (0x44d10)</xref_result>
+<lut_a>1FFC</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB8B0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>200C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB8C0</lut_b_name>
+<lut_r>201C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB8D0</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44CD4 (0x44d64)</xref_result>
+<lut_a>211C</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FB9D0</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>212C</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FB9E0</lut_b_name>
+<lut_r>213C</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FB9F0</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x44f54)</xref_result>
+<lut_a>223C</lut_a>
+<lut_a_name>LUT_A_3D_Knock_RPM_Cyl1</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>224C</lut_b>
+<lut_b_name>LUT_B_3D_Knock_LOAD_Cyl1</lut_b_name>
+<lut_r>225C</lut_r>
+<lut_r_name>LUT_R_3D_Knock_RPM_Load_Cyl1</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Knock Sensitivity Cylinder #1</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x44fbc)</xref_result>
+<lut_a>235C</lut_a>
+<lut_a_name>LUT_A_3D_Knock_RPM_Cyl2</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>236C</lut_b>
+<lut_b_name>LUT_B_3D_Knock_LOAD_Cyl2</lut_b_name>
+<lut_r>237C</lut_r>
+<lut_r_name>LUT_R_3D_Knock_RPM_Load_Cyl2</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Knock Sensitivity Cylinder #2</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x45024)</xref_result>
+<lut_a>247C</lut_a>
+<lut_a_name>LUT_A_3D_Knock_RPM_Cyl3</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>248C</lut_b>
+<lut_b_name>LUT_B_3D_Knock_LOAD_Cyl3</lut_b_name>
+<lut_r>249C</lut_r>
+<lut_r_name>LUT_R_3D_Knock_RPM_Load_Cyl3</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Knock Sensitivity Cylinder #3</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x4508c)</xref_result>
+<lut_a>259C</lut_a>
+<lut_a_name>LUT_A_3D_Knock_RPM_Cyl4</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>25AC</lut_b>
+<lut_b_name>LUT_B_3D_Knock_LOAD_Cyl4</lut_b_name>
+<lut_r>25BC</lut_r>
+<lut_r_name>LUT_R_3D_Knock_RPM_Load_Cyl4</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Knock Sensitivity Cylinder #4</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>sub_44F18 (0x450f4)</xref_result>
+<lut_a>26BC</lut_a>
+<lut_a_name>LUT_A_3D_RPM_480k_16_4</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>26C4</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FBF78</lut_b_name>
+<lut_r>26CC</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FBF80</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>Knock Sensitivity Unknown</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MPWMSM_sub_51AA4 (0x521e4)</xref_result>
+<lut_a>3BA6</lut_a>
+<lut_a_name>LUT_A_3D_unk_3FD45A</lut_a_name>
+<lut_b>3BAE</lut_b>
+<lut_b_name>LUT_B_3D_unk_3FD462</lut_b_name>
+<lut_r>3BBE</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FD472</lut_r_name>
+<input_a>ffffffff</input_a>
+<input_a_name>unknown</input_a_name>
+<input_b>3fd5cc</input_b>
+<input_b_name>unk_3FD5CC</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>OBD_DTC_Missfires_sub_53620 (0x537d0)</xref_result>
+<lut_a>38B6</lut_a>
+<lut_a_name>LUT_A_3D_RPM_480k_16</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>38BE</lut_b>
+<lut_b_name>LUT_B_3D_EngineLoad</lut_b_name>
+<lut_r>38C6</lut_r>
+<lut_r_name>LUT_R_3D_Misfire_EngineLoad_vs_RPM</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>OBD Misfire - Engineload vs RPM</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>4</xsize>
+<ysize>4</ysize>
+<function>LOOKUP_3D_Interpolate_Byte</function>
+<xref_result>MAIN_TC_Control_SPEED_Calc_sub_73288 (0x739f8), MAIN_TC_Control_SPEED_Calc_sub_73288 (0x73ac8), MAIN_TC_Control_SPEED_Calc_sub_73288 (0x73b70)</xref_result>
+<lut_a>12D4</lut_a>
+<lut_a_name>LUT_A_3D_TractionControl</lut_a_name>
+<lut_b>12D8</lut_b>
+<lut_b_name>LUT_B_3D_TractionControl</lut_b_name>
+<lut_b_calc>LUTB/2</lut_b_calc>
+<lut_r>12DC</lut_r>
+<lut_r_name>LUT_R_3D_TractionControl</lut_r_name>
+<input_a>3fe7b9</input_a>
+<input_a_name>Speed Front Wheels</input_a_name>
+<input_a_unit>kph</input_a_unit>
+<input_b>3fe40C</input_b>
+<input_b_name>Throttle Pedal</input_b_name>
+<input_b_unit>?</input_b_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>16</bits>
+<xsize>16</xsize>
+<ysize>16</ysize>
+<function>LOOKUP_3D_Interpolate_HalfWord</function>
+<xref_result>OBD_DTC_Missfires_sub_53620 (0x53674)</xref_result>
+<lut_a>3676</lut_a>
+<lut_a_name>LUT_A_3D_RPM_Value</lut_a_name>
+<lut_b>3696</lut_b>
+<lut_b_name>LUT_B_3D_AbsLoad_calc</lut_b_name>
+<lut_r>36B6</lut_r>
+<lut_r_name>LUT_R_3D_AbsLoad_vs_RPM_Value</lut_r_name>
+<lut_r_calc>LUTR Xor 0x8000</lut_r_calc>
+<lut_r_cast>signed</lut_r_cast>
+<input_a>3fd7f4</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_a_unit>RPM</input_a_unit>
+<input_b>3fd8e0</input_b>
+<input_b_name>OBD Misfire - AbsLoad vs. RPM</input_b_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result>MAIN_MPIOSM_MPWMSM_sub_3A074 (0x3a320), MAIN_MPIOSM_MPWMSM_sub_3A074 (0x3a384)</xref_result>
+<lut_a>1444</lut_a>
+<lut_a_name>LUT_A_3D_IntakeAirTemp_calc</lut_a_name>
+<lut_a_conversion>iat</lut_a_conversion>
+<lut_b>144C</lut_b>
+<lut_b_name>LUT_B_3D_EngineCoolantTemp_Fahrenheit_14</lut_b_name>
+<lut_b_conversion>ect</lut_b_conversion>
+<lut_r>1454</lut_r>
+<lut_r_name>LUT_R_3D_unk_3FAD08</lut_r_name>
+<lut_r_conversion>5sectime</lut_r_conversion>
+<input_a>3fd663</input_a>
+<input_a_name>Intake Air Temp</input_a_name>
+<input_a_link_name>iat</input_a_link_name>
+<input_b>3fd662</input_b>
+<input_b_name>Engine Coolant Temp</input_b_name>
+<input_b_link_name>ect</input_b_link_name>
+<output_name>ECU Shutdown Delay</output_name>
+<output_unit>S</output_unit>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result>MAIN_OpenClosedLoop (0x4337c)</xref_result>
+<lut_a>A74</lut_a>
+<lut_a_name>LUT_A_3D_RPM480k_16_1</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>A7C</lut_b>
+<lut_b_name>LUT_B_3D_EngineLoadNum1</lut_b_name>
+<lut_r>A84</lut_r>
+<lut_r_name>LUT_R_3D_STFT_EngineLoad_vs_RPM_1</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>STFT Fuel Add (small)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result>MAIN_OpenClosedLoop (0x433d4)</xref_result>
+<lut_a>AC4</lut_a>
+<lut_a_name>LUT_A_3D_RPM480k_16_2</lut_a_name>
+<lut_a_conversion>rpm480k16</lut_a_conversion>
+<lut_b>ACC</lut_b>
+<lut_b_name>LUT_B_3D_EngineLoadNum2</lut_b_name>
+<lut_r>AD4</lut_r>
+<lut_r_name>LUT_R_3D_STFT_EngineLoad_vs_RPM_2</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>STFT Fuel Remove (small)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result>MAIN_OpenClosedLoop (0x4342c)</xref_result>
+<lut_a>B14</lut_a>
+<lut_a_name>LUT_A_3D_RPM480k_16_3</lut_a_name>
+<lut_b>B1C</lut_b>
+<lut_b_name>LUT_B_3D_EngineLoadNum3</lut_b_name>
+<lut_r>B24</lut_r>
+<lut_r_name>LUT_R_3D_STFT_EngineLoad_vs_RPM_3</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>STFT Fuel Add (large)</output_name>
+</map>
+<map>
+<dimension>3</dimension>
+<bits>8</bits>
+<xsize>8</xsize>
+<ysize>8</ysize>
+<function>LOOKUP_3D_Fixed_Byte</function>
+<xref_result>MAIN_OpenClosedLoop (0x43484)</xref_result>
+<lut_a>B64</lut_a>
+<lut_a_name>LUT_A_3D_RPM480k_16_4</lut_a_name>
+<lut_b>B6C</lut_b>
+<lut_b_name>LUT_B_3D_EngineLoadNum4</lut_b_name>
+<lut_r>B74</lut_r>
+<lut_r_name>LUT_R_3D_STFT_EngineLoad_vs_RPM_4</lut_r_name>
+<input_a>3fd7ec</input_a>
+<input_a_name>Engine RPM</input_a_name>
+<input_a_link_name>engine_rpm</input_a_link_name>
+<input_b>3fd907</input_b>
+<input_b_name>Engine Load Number</input_b_name>
+<input_b_link_name>engineloadnumber</input_b_link_name>
+<output_name>STFT Fuel Remove (large)</output_name>
+</map>
+</maps>
+</t4e>
